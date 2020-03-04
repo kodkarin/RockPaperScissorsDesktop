@@ -1,0 +1,13 @@
+!.idea
+.idea/$PRODUCT_WORKSPACE_FILE$
+.idea/*xml
+.idea/libraries
+.idea/.name
+!.idea/codeStyles/*
+build
+.gradle
+*.jar
+*/gradle/wrapper/gradle-wrapper.properties
+*.iml
+!gradle-wrapper.jar
+*pid*.log
