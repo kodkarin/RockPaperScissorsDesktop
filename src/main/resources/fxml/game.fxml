@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.example.rps.controllers.GameWindow"
+          prefHeight="400.0" prefWidth="600.0" alignment="CENTER" vgap="10" hgap="10">
+
+    <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
+
+    <Label text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+    <Button fx:id="rock" GridPane.columnIndex = "0" GridPane.rowIndex="12"/>
+
+    <VBox GridPane.columnIndex="0" GridPane.rowIndex="6"
+          GridPane.columnSpan="2">
+        <padding><Insets top="50" right="25" bottom="10" left="25"/></padding>
+        <Button fx:id="SearchButton" text="Sök" alignment="BOTTOM_CENTER" />
+    </VBox>
+
+</GridPane>
