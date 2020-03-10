@@ -30,7 +30,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        URL url = new File("src/main/resources/fxml/addFriend.fxml").toURI().toURL();
+        URL url = new File("src/main/resources/fxml/activeGame.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
 
 
