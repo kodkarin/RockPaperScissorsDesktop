@@ -1,0 +1,14 @@
+#gameGridPane {
+	-fx-background-color: #C0D3EB;
+}
+
+Button {
+	-fx-color: #97BDF0;
+	-fx-background-radius: 10;
+	-fx-font: normal bold 20px 'serif';
+
+}
+#button1 {
+    -fx-color: #4879B8;
+
+}
