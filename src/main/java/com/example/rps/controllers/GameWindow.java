@@ -27,10 +27,18 @@ public class GameWindow {
 
     @FXML
     public void handleRockButtonAction() {
+        Parent root = null;
         Label label = new Label("Rock");
 
-        URL url = new File("src/main/resources/fxml/game.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
+        try {
+            URL url = new File("src/main/resources/fxml/game.fxml").toURI().toURL();
+            root = FXMLLoader.load(url);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
 
 
