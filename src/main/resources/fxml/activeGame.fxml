@@ -6,10 +6,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="activeGame"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.rps.controllers.ActiveGameWindow"
-      prefHeight="400.0" prefWidth="600.0">
+<BorderPane id="activeGame"
+            styleClass="activeGame"
+            stylesheets="@/css/activeGame.css"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.rps.controllers.ActiveGameWindow"
+            prefHeight="400.0" prefWidth="600.0">
 
-</VBox>
+    <bottom>
+            <Group>
+                <Button id="newGameButton"
+                        text="New game"
+                        focusTraversable="false"
+                        onMouseClicked="#newGameButtonClicked"/>
+                <Button id="helpbutton"
+                        text="Help"
+                        focusTraversable="false"
+                        layoutX="100"
+                        onMouseClicked="#helpButtonClicked"/>
+            </Group>
+    </bottom>
+
+
+</BorderPane>
