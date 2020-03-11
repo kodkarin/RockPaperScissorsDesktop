@@ -10,20 +10,62 @@
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.rps.controllers.GameWindow"
+          fx:id="gameGridPane"
           prefHeight="400.0" prefWidth="600.0" alignment="CENTER" vgap="10" hgap="10">
 
     <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 
-    <Label text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <columnConstraints>
+        <ColumnConstraints minWidth="50" prefWidth="50"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+        <ColumnConstraints minWidth="50" prefWidth="50"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+        <ColumnConstraints minWidth="50" prefWidth="50"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+        <ColumnConstraints minWidth="50" prefWidth="50"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+        <ColumnConstraints minWidth="50" prefWidth="50"
+                           maxWidth="Infinity" halignment="CENTER">
+        </ColumnConstraints>
+    </columnConstraints>
 
-    <Label text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+    <rowConstraints>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
+        <RowConstraints minHeight="30" prefHeight="30" maxHeight="Infinity"/>
+        <RowConstraints minHeight="30" prefHeight="30" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
 
-    <Button fx:id="rock" GridPane.columnIndex = "0" GridPane.rowIndex="12"/>
+    </rowConstraints>
 
-    <VBox GridPane.columnIndex="0" GridPane.rowIndex="6"
-          GridPane.columnSpan="2">
-        <padding><Insets top="50" right="25" bottom="10" left="25"/></padding>
-        <Button fx:id="SearchButton" text="Sök" alignment="BOTTOM_CENTER" />
-    </VBox>
+    <Label fx:id="player1" text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <Label fx:id="player2" text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+    <Button fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="12"
+            onAction="#handleRockButtonAction"/>
+
+    <Button fx:id="scissors" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="12"/>
+
+    <Button fx:id="paper" text="Påse" GridPane.columnIndex="4" GridPane.rowIndex="12"/>
+
+    <Label  text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
+
+    <Button fx:id="rules" text="Spelregler" GridPane.columnIndex="4" GridPane.rowIndex="14"/>
+
 
 </GridPane>
