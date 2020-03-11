@@ -6,10 +6,32 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="newGameWindow"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.rps.controllers.NewGameWindow"
-      prefHeight="400.0" prefWidth="600.0">
+<BorderPane id="newGame"
+            styleClass="newGame"
+            stylesheets="@/css/newGame.css"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.rps.controllers.NewGameWindow"
+            prefHeight="400.0" prefWidth="600.0">
 
-</VBox>
+    <bottom>
+        <Group>
+            <Button id="inviteButton"
+                    text="Invite friend"
+                    focusTraversable="false"
+                    onMouseClicked="#inviteFriendButtonClicked"/>
+            <Button id="playWithCpu"
+                    text="Play with computer"
+                    focusTraversable="false"
+                    layoutX="100"
+                    onMouseClicked="#playWithComputerButtonClicked"/>
+            <Button id="addFriend"
+                    text="Add friend"
+                    focusTraversable="false"
+                    layoutX="100"
+                    onMouseClicked="#addFriendButtonClicked"/>
+        </Group>
+    </bottom>
+
+
+</BorderPane>
