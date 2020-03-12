@@ -11,8 +11,9 @@ import javafx.scene.layout.GridPane;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.net.URL;
+import java.sql.Connection;
 
-public class GameWindow {
+public class GameWindow extends Window {
 
     @FXML
     private Label player1;
@@ -21,9 +22,6 @@ public class GameWindow {
     private Game game;
     private int rounds = 0;
 
-    public GameWindow() {
-
-    }
 
     @FXML
     public void handleRockButtonAction() {

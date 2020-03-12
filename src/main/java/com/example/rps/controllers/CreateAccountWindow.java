@@ -1,4 +1,8 @@
 package com.example.rps.controllers;
 
-public class CreateAccountWindow {
+import java.sql.Connection;
+
+public class CreateAccountWindow extends Window {
+
+
 }

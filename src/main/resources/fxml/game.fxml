@@ -59,14 +59,14 @@
 
     <Label fx:id="player2" text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
 
-    <Button  id="button1" fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="12"
+    <Button id="button1" fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="12"
             onAction="#handleRockButtonAction"/>
 
     <Button fx:id="scissors" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="12"/>
 
     <Button fx:id="paper" text="Påse" GridPane.columnIndex="4" GridPane.rowIndex="12"/>
 
-    <Label  text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
+    <Label text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
 
     <Button fx:id="rules" text="Spelregler" GridPane.columnIndex="4" GridPane.rowIndex="14"/>
 

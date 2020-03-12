@@ -12,3 +12,4 @@ build
 *.iml
 !gradle-wrapper.jar
 *pid*.log
+src/main/resources/text/login.txt

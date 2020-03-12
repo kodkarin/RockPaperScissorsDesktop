@@ -12,12 +12,14 @@
           fx:controller="com.example.rps.controllers.LoginWindow"
           prefHeight="400.0" prefWidth="600.0" alignment="CENTER" vgap="10" hgap="10">
 
+
+
     <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 
     <Label text="Username:"
            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <TextField id="username" fx:id="username"
+    <TextField id="username" fx:id="usernameTextField"
             GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
     <Label text="Password:"
@@ -26,13 +28,14 @@
     <PasswordField fx:id="passwordField"
                    GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-    <Label id="message" visible="false"
+    <Label fx:id="message" visible="false"
            GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="4"
         GridPane.columnSpan="2">
         <padding><Insets top="50" right="25" bottom="10" left="25"/></padding>
-        <Button id="loginButton" fx:id="loginButton" text="Logga in" alignment="TOP_CENTER" />
+        <Button id="loginButton" fx:id="loginButton" text="Logga in" alignment="TOP_CENTER"
+            onAction="#handleLoginButton"/>
         <Button id = "newUser" fx:id="newUser" text="Skapa konto" alignment="BOTTOM_CENTER" />
     </VBox>
 

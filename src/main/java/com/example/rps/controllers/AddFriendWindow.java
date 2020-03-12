@@ -1,4 +1,8 @@
 package com.example.rps.controllers;
 
-public class AddFriendWindow {
+import java.sql.Connection;
+
+public class AddFriendWindow extends Window {
+
+
 }
