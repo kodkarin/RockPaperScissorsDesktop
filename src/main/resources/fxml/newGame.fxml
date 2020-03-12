@@ -14,8 +14,8 @@
             fx:controller="com.example.rps.controllers.NewGameWindow"
             prefHeight="400.0" prefWidth="600.0">
 
-    <bottom>
-        <Group>
+    <center>
+        <VBox spacing="5">
             <Button id="inviteButton"
                     text="Invite friend"
                     focusTraversable="false"
@@ -23,15 +23,13 @@
             <Button id="playWithCpu"
                     text="Play with computer"
                     focusTraversable="false"
-                    layoutX="100"
                     onMouseClicked="#playWithComputerButtonClicked"/>
             <Button id="addFriend"
                     text="Add friend"
                     focusTraversable="false"
-                    layoutX="100"
                     onMouseClicked="#addFriendButtonClicked"/>
-        </Group>
-    </bottom>
+        </VBox>
+    </center>
 
 
 </BorderPane>

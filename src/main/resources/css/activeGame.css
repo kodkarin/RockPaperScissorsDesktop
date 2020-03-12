@@ -1,10 +1,19 @@
 #activeGame {
 	-fx-background-color: white;
+	-fx-padding: 10px;
 }
 
 Button {
 	-fx-color: #FFCB7A;
-	-fx-shape: "M 350 300 L 500 300 L 500 200 L 350 200 L 350 300";
 	-fx-background-radius: 5em;
 	-fx-font: normal bold 20px 'serif';
+}
+
+HBox {
+    -fx-alignment: bottom-center;
+    -fx-spacing: 180;
+}
+
+#header_right {
+    -fx-alignment: top-right;
 }

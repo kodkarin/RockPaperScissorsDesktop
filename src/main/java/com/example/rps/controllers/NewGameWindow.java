@@ -1,7 +1,5 @@
 package com.example.rps.controllers;
-
 import javafx.scene.input.MouseEvent;
-
 import java.io.IOException;
 
 public class NewGameWindow {

@@ -14,8 +14,18 @@
             fx:controller="com.example.rps.controllers.ActiveGameWindow"
             prefHeight="400.0" prefWidth="600.0">
 
+    <top>
+        <HBox id="header_right">
+            <Button id="logout"
+                    text="Log out"
+                    focusTraversable="false"
+                    layoutX="100"
+                    onMouseClicked="#helpButtonClicked"/>
+        </HBox>
+    </top>
+
     <bottom>
-            <Group>
+            <HBox>
                 <Button id="newGameButton"
                         text="New game"
                         focusTraversable="false"
@@ -23,9 +33,8 @@
                 <Button id="helpbutton"
                         text="Help"
                         focusTraversable="false"
-                        layoutX="100"
                         onMouseClicked="#helpButtonClicked"/>
-            </Group>
+            </HBox>
     </bottom>
 
 
