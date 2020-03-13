@@ -13,10 +13,9 @@ import java.sql.Connection;
 
 public class ScreenController {
 
-    private static Connection conn;
-    private static Stage stage;
+    private Connection conn;
+    private Stage stage;
 
-   // private static final Map<Integer, String> FXMLS = new HashMap<>();
 
     public static final String LOGIN = "src/main/resources/fxml/login.fxml";
     public static final String CREATE_ACCOUNT = "src/main/resources/fxml/createAccount.fxml";
@@ -36,7 +35,7 @@ public class ScreenController {
 
 
 
-    public static void setWindow (String selectedWindow) {
+    public void setWindow (String selectedWindow, String token) {
 
 
         try {
@@ -46,7 +45,7 @@ public class ScreenController {
             Scene scene = new Scene(root);
 
             Window window = loader.getController();
-            window.initConnection(conn);
+            window.init(conn, this, token);
             window.setUpWindow();
 
             stage.setScene(scene);

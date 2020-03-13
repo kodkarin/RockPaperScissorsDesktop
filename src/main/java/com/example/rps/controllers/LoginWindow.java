@@ -41,9 +41,11 @@ public class LoginWindow extends Window {
         String password = passwordField.getText();
 
         PreparedStatement loginStatement= null;
+        PreparedStatement getUserId = null;
+        PreparedStatement setToken = null;
 
         try {
-            Connection conn = super.getConnection();
+            Connection conn = getConnection();
             loginStatement = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND password = ?;");
             loginStatement.setString(1, username);
             loginStatement.setString(2, password);
@@ -52,13 +54,29 @@ public class LoginWindow extends Window {
 
 
             if (!results.next()) {
-                message.setText("Felaktigt användarnamn eller lösenord");
+                message.setText("Felaktigt anv" + (char)228 + "ndarnamn eller l" + (char)246 + "senord");
                 message.setTextFill(Color.RED);
                 message.setVisible(true);
                 usernameTextField.setText("");
                 passwordField.clear();
             } else {
-                ScreenController.setWindow(ScreenController.ACTIVE_GAMES);
+
+                String token = createToken(25);
+
+                getUserId = conn.prepareStatement("SELECT id FROM users WHERE username = ? AND password = ?");
+                getUserId.setString(1, username);
+                getUserId.setString(2, password);
+                ResultSet userIdResults = getUserId.executeQuery();
+                userIdResults.next();
+                int userId = userIdResults.getInt(1);
+
+                setToken = conn.prepareStatement("INSERT INTO tokens (user_id, value, issued) VALUES (?, ?, CURRENT_TIMESTAMP)");
+                setToken.setInt(1, userId);
+                setToken.setString(2, token);
+
+                setToken.executeUpdate();
+
+                getScreenController().setWindow(ScreenController.ACTIVE_GAMES, token);
             }
 
         } catch (Exception e) {
@@ -68,11 +86,20 @@ public class LoginWindow extends Window {
                 if (loginStatement != null) {
                     loginStatement.close();
                 }
+                if (setToken != null) {
+                    setToken.close();
+                }
+                if(getUserId != null) {
+                    getUserId.close();
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+    }
 
-
+    @FXML
+    public void handleNewUserButton() {
+        getScreenController().setWindow(ScreenController.CREATE_ACCOUNT, "");
     }
 }

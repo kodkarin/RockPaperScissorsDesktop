@@ -43,10 +43,10 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        myStage.setTitle("Sten Sax Påse");
+        myStage.setTitle("Sten Sax P" + (char)229 + "se");
 
         ScreenController screenController = new ScreenController(conn, myStage);
-        screenController.setWindow(ScreenController.LOGIN);
+        screenController.setWindow(ScreenController.LOGIN, "");
 
 
     }
