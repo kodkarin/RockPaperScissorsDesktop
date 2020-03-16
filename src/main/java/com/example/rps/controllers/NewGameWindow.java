@@ -2,29 +2,21 @@ package com.example.rps.controllers;
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
-public class NewGameWindow {
+public class NewGameWindow extends Window {
 
-    public void inviteFriendButtonClicked(MouseEvent mouseEvent) throws IOException {
-        /*HelperMethods.replaceScene(
-                HelperMethods.playerSelectionWindowFXML,
-                HelperMethods.playerSelectionWindowTitle,
-                this
-        );*/
+    public void inviteFriendAndStartGame() {
+        //skriv metod som startar nytt spel med en vän
     }
 
-    public void playWithComputerButtonClicked(MouseEvent mouseEvent) throws IOException {
-        /*HelperMethods.replaceScene(
-                HelperMethods.playerSelectionWindowFXML,
-                HelperMethods.playerSelectionWindowTitle,
-                this
-        );*/
+    public void playWithCpuAndStartGame() {
+        //skriv metod som startar nytt spel mot datorn
     }
 
-    public void addFriendButtonClicked(MouseEvent mouseEvent) throws IOException {
-        /*HelperMethods.replaceScene(
-                HelperMethods.playerSelectionWindowFXML,
-                HelperMethods.playerSelectionWindowTitle,
-                this
-        );*/
+    public void addFriendButtonClicked() {
+        getScreenController().setWindow(ScreenController.ADD_FRIEND, "");
+    }
+
+    public void backButtonClicked() {
+        getScreenController().setWindow(ScreenController.ACTIVE_GAMES, "");
     }
 }
