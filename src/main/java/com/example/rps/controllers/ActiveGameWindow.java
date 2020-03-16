@@ -4,21 +4,17 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
-public class ActiveGameWindow {
+public class ActiveGameWindow extends Window {
 
-    public void newGameButtonClicked(MouseEvent mouseEvent) throws IOException {
-        /*HelperMethods.replaceScene(
-                HelperMethods.playerSelectionWindowFXML,
-                HelperMethods.playerSelectionWindowTitle,
-                this
-        );*/
+    public void newGameButtonClicked() {
+        getScreenController().setWindow(ScreenController.GAME, "");
     }
 
-    public void helpButtonClicked(MouseEvent mouseEvent) throws IOException {
-        /*HelperMethods.replaceScene(
-                HelperMethods.playerSelectionWindowFXML,
-                HelperMethods.playerSelectionWindowTitle,
-                this
-        );*/
+    public void helpButtonClicked() {
+       getScreenController().setWindow(ScreenController.RULES, "");
+    }
+
+    public void logOutButtonClicked() {
+        getScreenController().setWindow(ScreenController.LOGIN, "");
     }
 }
