@@ -20,7 +20,7 @@
                     text="Log out"
                     focusTraversable="false"
                     layoutX="100"
-                    onMouseClicked="#helpButtonClicked"/>
+                    onMouseClicked="#logOutButtonClicked"/>
         </HBox>
     </top>
 
