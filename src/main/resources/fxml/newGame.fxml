@@ -19,15 +19,18 @@
             <Button id="inviteButton"
                     text="Invite friend"
                     focusTraversable="false"
-                    onMouseClicked="#inviteFriendButtonClicked"/>
+                    onMouseClicked="#inviteFriendAndStartGame"/>
             <Button id="playWithCpu"
                     text="Play with computer"
                     focusTraversable="false"
-                    onMouseClicked="#playWithComputerButtonClicked"/>
+                    onMouseClicked="#playWithCpuAndStartGame"/>
             <Button id="addFriend"
                     text="Add friend"
                     focusTraversable="false"
                     onMouseClicked="#addFriendButtonClicked"/>
+            <Button id="backButton"
+                    focusTraversable="false"
+                    onMouseClicked="#backButtonClicked"/>
         </VBox>
     </center>
 
