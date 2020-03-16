@@ -2,6 +2,8 @@ package com.example.rps.controllers;
 
 import java.security.SecureRandom;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class Window {
 
@@ -46,5 +48,32 @@ public class Window {
             sb.append(character);
         }
         return sb.toString();
+    }
+
+    public boolean validateToken(String token) {
+        PreparedStatement getTimestampIssued = null;
+        boolean validToken = false;
+
+        try{
+            getTimestampIssued = conn.prepareStatement("SELECT issued FROM tokens WHERE value = ? AND issued >= (CURRENT_TIMESTAMP - interval '1 day')");
+            getTimestampIssued.setString(1, token);
+            ResultSet results = getTimestampIssued.executeQuery();
+            if(results.next()) {
+                validToken = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (getTimestampIssued != null) {
+                    getTimestampIssued.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return validToken;
     }
 }

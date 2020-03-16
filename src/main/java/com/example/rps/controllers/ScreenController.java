@@ -46,15 +46,32 @@ public class ScreenController {
 
             Window window = loader.getController();
             window.init(conn, this, token);
-            window.setUpWindow();
 
-            stage.setScene(scene);
-            stage.show();
+            if (!(window instanceof LoginWindow) && !(window instanceof CreateAccountWindow)) {
+
+                boolean validToken = window.validateToken(token);
+
+                if(!validToken) {
+                    setWindow(LOGIN, "");
+                } else {
+                    window.setUpWindow();
+
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            } else {
+
+                window.setUpWindow();
+
+                stage.setScene(scene);
+                stage.show();
+            }
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
