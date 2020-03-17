@@ -1,12 +1,15 @@
 #newGame {
-	-fx-background-color: white;
+	-fx-background-color: #C0D3EB;
 	-fx-padding: 5px;
 }
 
 Button {
-	-fx-color: #FFCB7A;
 	-fx-background-radius: 5em;
-	-fx-font: normal bold 20px 'serif';
+	-fx-color: #97BDF0;
+}
+
+Button:hover {
+    -fx-color: #4879B8;
 }
 
 VBox {
