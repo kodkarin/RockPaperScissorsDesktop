@@ -28,9 +28,6 @@
                     text="Add friend"
                     focusTraversable="false"
                     onMouseClicked="#addFriendButtonClicked"/>
-            <Button id="backButton"
-                    focusTraversable="false"
-                    onMouseClicked="#backButtonClicked"/>
         </VBox>
     </center>
 
