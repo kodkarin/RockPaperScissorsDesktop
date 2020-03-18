@@ -1,14 +1,17 @@
 package com.example.rps.controllers;
 
 import com.example.rps.models.Game;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 
-import java.awt.event.ActionEvent;
+
 import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
@@ -44,7 +47,7 @@ public class GameWindow extends Window {
             getMoves.setInt(1, game.getGameID());
             ResultSet results = getMoves.executeQuery();
 
-            int lastUsedRowNumber = 1;
+            lastUsedRowNumber = 1;
 
             while(results.next()) {
                 int move = results.getInt("value");
@@ -68,9 +71,12 @@ public class GameWindow extends Window {
                 }
 
                 if (playerId == game.getPlayer1().getUserId()) {
+                    String labelId = "round" + roundNumber + "player1";
+                    tempLabel.setId(labelId);
                     gameGridPane.add(tempLabel, 1, lastUsedRowNumber + roundNumber);
-
                 } else if (playerId == game.getPlayer2().getUserId()) {
+                    String labelId = "round" + roundNumber + "player2";
+                    tempLabel.setId(labelId);
                     gameGridPane.add(tempLabel, 3, lastUsedRowNumber + roundNumber);
                 }
 
@@ -90,18 +96,60 @@ public class GameWindow extends Window {
     }
 
     @FXML
+    public void handleChoiceButtons(ActionEvent actionEvent) {
+
+
+        Button button = (Button) actionEvent.getSource();
+        String buttonId = button.getId();
+        Label label = new Label();
+        label.setText(buttonId);
+
+        int playerId = getUserId(getToken());
+
+        int round = getLastRoundNumber(playerId) + 1;
+
+        if (playerId == game.getPlayer1().getUserId()) {
+            String labelId = "round" + round + "player1";
+            label.setId(labelId);
+            gameGridPane.add(label, 1, lastUsedRowNumber + 1);
+
+        } else if (playerId == game.getPlayer2().getUserId()) {
+            String labelId = "round" + round + "player2";
+            label.setId(labelId);
+            gameGridPane.add(label, 3, lastUsedRowNumber + 1);
+        }
+        int choice = 0;
+        switch(buttonId) {
+            case "sten":
+                choice = Game.ROCK;
+                break;
+            case "sax":
+                choice = Game.SCISSORS;
+                break;
+            case "p" + (char)229 + "se":
+                choice = Game.PAPER;
+        }
+        addMoveToDatabase(playerId, choice, round);
+    }
+
+  /*  @FXML
     public void handleRockButtonAction() {
 
         Label label = new Label("Sten");
         int playerId = getUserId(getToken());
+        int round = getLastRoundNumber(playerId) + 1;
 
         if (playerId == game.getPlayer1().getUserId()) {
+            String labelId = "round" + round + "player1";
+            label.setId(labelId);
             gameGridPane.add(label, 1, lastUsedRowNumber + 1);
 
         } else if (playerId == game.getPlayer2().getUserId()) {
+            String labelId = "round" + round + "player2";
+            label.setId(labelId);
             gameGridPane.add(label, 3, lastUsedRowNumber + 1);
         }
-        makeMove(playerId, Game.ROCK, getNextRoundNumber(playerId));
+        addMoveToDatabase(playerId, Game.ROCK, round);
 
     }
 
@@ -117,7 +165,7 @@ public class GameWindow extends Window {
         } else if (playerId == game.getPlayer2().getUserId()) {
             gameGridPane.add(label, 3, lastUsedRowNumber + 1);
         }
-        makeMove(playerId, Game.SCISSORS, getNextRoundNumber(playerId));
+        addMoveToDatabase(playerId, Game.SCISSORS, getLastRoundNumber(playerId) + 1);
     }
 
     @FXML
@@ -132,8 +180,8 @@ public class GameWindow extends Window {
         } else if (playerId == game.getPlayer2().getUserId()) {
             gameGridPane.add(label, 3, lastUsedRowNumber + 1);
         }
-        makeMove(playerId, Game.PAPER, getNextRoundNumber(playerId));
-    }
+        addMoveToDatabase(playerId, Game.PAPER, getLastRoundNumber(playerId) + 1);
+    }*/
 
 
 
@@ -163,10 +211,10 @@ public class GameWindow extends Window {
         return userId;
     }
 
-    private void makeMove(int playerId, int move, int round) {
+    private void addMoveToDatabase (int playerId, int move, int round) {
         PreparedStatement insertMove = null;
         try {
-            insertMove = getConnection().prepareStatement("INSERT INTO moves(match_id, user_id, round_no, value) VALUES (?, ?, ?, ?");
+            insertMove = getConnection().prepareStatement("INSERT INTO moves(match_id, user_id, round_no, value) VALUES (?, ?, ?, ?)");
             insertMove.setInt(1, game.getGameID());
             insertMove.setInt(2, playerId);
             insertMove.setInt(3, round);
@@ -186,7 +234,7 @@ public class GameWindow extends Window {
         }
     }
 
-    private int getNextRoundNumber(int playerID) {
+    private int getLastRoundNumber(int playerID) {
         PreparedStatement getMaxRoundNumber = null;
         int maxRoundNumber = 0;
         try {
@@ -208,6 +256,56 @@ public class GameWindow extends Window {
                 }
             }
         }
-        return maxRoundNumber + 1;
+        return maxRoundNumber;
     }
+
+    private void finishRound(){
+        int roundNumber = getLastRoundNumber(getUserId(getToken()));
+        int choicePlayer1 = 0;
+        int choicePlayer2 = 0;
+        PreparedStatement getChoice = null;
+        try {
+            getChoice = getConnection().prepareStatement("SELECT value FROM moves WHERE user_id = ? AND round_no = ?");
+            getChoice.setInt(1, game.getPlayer1().getUserId());
+            getChoice.setInt(2, roundNumber);
+
+            ResultSet results = getChoice.executeQuery();
+            if (results.next()) {
+                choicePlayer1 = results.getInt(1);
+            }
+
+            getChoice.setInt(1, game.getPlayer2().getUserId());
+            results = getChoice.executeQuery();
+            if (results.next()) {
+                choicePlayer2 = results.getInt(1);
+            }
+            int winner = game.compareChoices(choicePlayer1, choicePlayer2);
+            game.setRoundWinners(roundNumber, winner);
+
+            if (winner != Game.DRAW){
+                String labelId = "";
+                if (winner == Game.PLAYER1_WINS) {
+                    labelId = "round" + roundNumber + "player1";
+                } else if (winner == Game.PLAYER2_WINS) {
+                    labelId = "round" + roundNumber + "player2";
+                }
+
+               // int labelIndex = gameGridPane.getChildren().indexOf();
+                //Label winningLabel = (Label)gameGridPane.getChildren().get(labelIndex);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (getChoice != null) {
+                try {
+                    getChoice.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
