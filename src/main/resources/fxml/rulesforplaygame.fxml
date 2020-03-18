@@ -3,18 +3,18 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
-<BorderPane id="rulesForPlayGame"
-            styleClass="rulesForPlayGAme"
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<VBox id="rulesForPlayGame"
+            styleClass="rulesForPlayGame"
             stylesheets="@/css/rulesForPlayGame.css"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.rps.controllers.RulesForPlayGameWindow"
             prefHeight="400.0" prefWidth="600.0">
 
-    <top>
-        <HBox id="headerPosition">
-            <Label id="header" text="Rules"/>
-        </HBox>
-    </top>
 
-</BorderPane>
+    <VBox>
+        <TextField id="text" fx:id="textField"></TextField>
+    </VBox>
+</VBox>
