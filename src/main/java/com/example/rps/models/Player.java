@@ -2,19 +2,20 @@ package com.example.rps.models;
 
 public class Player {
 
-    private String token;
     private String userName;
+    private int userId;
 
-    public Player(String token, String userName) {
-        this.token = token;
+    public Player(String userName, int userId) {
+
         this.userName = userName;
-    }
-
-    public String getToken() {
-        return token;
+        this.userId = userId;
     }
 
     public String getUserName() {
         return userName;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 }

@@ -11,7 +11,8 @@ public class Game {
     private int scorePlayer2;
     private int currentChoicePlayer1;
     private int currentChoicePlayer2;
-    private static final int ROCK = 1;
+    private int[] roundWinners;
+    public static final int ROCK = 1;
     public static final int SCISSORS = 2;
     public static final int PAPER = 3;
     public static final int DRAW = 0;
@@ -27,12 +28,53 @@ public class Game {
         scorePlayer2 = 0;
         currentChoicePlayer1 = 0;
         currentChoicePlayer2 = 0;
+        int[] roundWinners = new int[15];
     }
 
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
+    public int getScorePlayer1() {
+        return scorePlayer1;
+    }
+
+    public int getScorePlayer2() {
+        return scorePlayer2;
+    }
+
+    public void setRoundWinners(int round, int player) {
+        if(round > roundWinners.length) {
+            int[] temp = new int[roundWinners.length * 2];
+            for(int i = 0; i < roundWinners.length; i++) {
+                temp[i] = roundWinners[i];
+            }
+            roundWinners = temp;
+        }
+        roundWinners[round-1] = player;
+    }
+
+    public int getRoundWinner(int round){
+        if((round >0) && (round<= roundWinners.length)) {
+            return roundWinners[round-1];
+        } else {
+            return 0;
+        }
+    }
 
     public void refreshScore(Connection conn) {
 
     }
+
 
     public String makeChoice(Player player, int choice) {
 
