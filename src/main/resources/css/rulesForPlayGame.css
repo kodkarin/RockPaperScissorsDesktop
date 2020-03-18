@@ -20,3 +20,11 @@ Button:hover {
     -fx-alignment: center;
     -fx-padding: 10 0 5 10;
 }
+
+#text {
+	-fx-padding: 0 10 10 10;
+	-fx-font: normal bold 16px 'arial';
+    -fx-text-fill: #2196F3;
+    -fx-alignment: center;
+    -fx-min-height: 280px;
+}
