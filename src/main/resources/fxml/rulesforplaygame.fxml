@@ -5,16 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <VBox id="rulesForPlayGame"
-            styleClass="rulesForPlayGame"
-            stylesheets="@/css/rulesForPlayGame.css"
-            xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.rps.controllers.RulesForPlayGameWindow"
-            prefHeight="400.0" prefWidth="600.0">
+      styleClass="rulesForPlayGame"
+      stylesheets="@/css/rulesForPlayGame.css"
+      xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.rps.controllers.RulesForPlayGameWindow"
+      prefHeight="400.0" prefWidth="600.0">
 
-
-    <VBox>
-        <TextField id="text" fx:id="textField"></TextField>
+    <VBox spacing="20">
+        <Label alignment="CENTER" id="header" text="How to play this game" />
+        <TextArea id="textArea" fx:id="textArea"></TextArea>
     </VBox>
 </VBox>
