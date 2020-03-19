@@ -1,6 +1,11 @@
 #rulesForPlayGame {
-    -fx-background-color: #C0D3EB;
+    -fx-background-color: white;
+}
+
+#textArea {
+    -fx-font: normal bold 16px 'arial';
     -fx-alignment: center;
+    -fx-min-height: 280px;
 }
 
 Button {
@@ -14,11 +19,12 @@ Button:hover {
 
 #header {
     -fx-font: normal bold 20px 'arial';
+    -fx-padding: 15 0 5 10;
 }
 
 #headerPosition {
     -fx-alignment: center;
-    -fx-padding: 10 0 5 10;
+
 }
 
 #text {
