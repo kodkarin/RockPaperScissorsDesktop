@@ -2,6 +2,7 @@ package com.example.rps.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -13,24 +14,8 @@ import java.util.Scanner;
 
 public class RulesForPlayGameWindow extends Window {
 
-    /*@FXML
-    Label text;
-
     @FXML
-    public void initialize() {
-        try {
-            text.setText(
-                new String(
-                    ScreenController.getResAsStream("/text/helpText").readAllBytes(),
-                    StandardCharsets.UTF_8).strip());
-            System.out.println(text.isResizable());
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e.getMessage());
-        }
-    }*/
-
-    @FXML
-    private TextField textField;
+    private TextArea textArea;
 
     @FXML
     public void initialize() {
@@ -40,7 +25,7 @@ public class RulesForPlayGameWindow extends Window {
             Scanner scanner = new Scanner(file);
             scanner.useDelimiter("Z");
             String text = scanner.next();
-            textField.setText(text);
+            textArea.setText(text);
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Kan ej hitta fil");
