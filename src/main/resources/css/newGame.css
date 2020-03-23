@@ -6,6 +6,7 @@
 Button {
 	-fx-background-radius: 5em;
 	-fx-color: #97BDF0;
+
 }
 
 Button:hover {
@@ -14,4 +15,8 @@ Button:hover {
 
 VBox {
     -fx-alignment: bottom-center;
+}
+
+HBox {
+    -fx-padding: 7px;
 }
