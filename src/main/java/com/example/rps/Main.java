@@ -38,7 +38,7 @@ public class Main extends Application {
         Connection conn = null;
 
         try {
-            conn = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Stensaxpase", user, login);
+            conn = DriverManager.getConnection("jdbc:postgresql://database-1.c2yvgj4bks0w.us-east-2.rds.amazonaws.com:5432/postgres", user, login);
         } catch (Exception e) {
             e.printStackTrace();
         }
