@@ -17,25 +17,25 @@
             fx:controller="com.example.rps.controllers.NewGameWindow"
             prefHeight="400.0" prefWidth="600.0">
 
-    <HBox id="top-header" pickOnBounds="false">
-        <children>
-            <Button fx:id="backButtonClicked"
-                    id="backButton"
-                    pickOnBounds="false"
-                    layoutX="10"
-                    layoutY="10"
-                    mnemonicParsing="false"
-                    focusTraversable="false">
-                <graphic>
-                    <ImageView fitHeight="20" fitWidth="50" preserveRatio="true" pickOnBounds="false">
-                        <image>
-                            <Image url="@../images/backbutton.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-        </children>
-    </HBox>
+    <top>
+        <Button
+                id="backButton"
+                onAction="#backButtonClicked"
+                pickOnBounds="false"
+                layoutX="10"
+                layoutY="10"
+                mnemonicParsing="false"
+                focusTraversable="false">
+            <graphic>
+                <ImageView fitHeight="20" fitWidth="50" preserveRatio="true" pickOnBounds="false">
+                    <image>
+                        <Image url="@../images/backbutton.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </top>
+
 
     <center>
         <VBox spacing="5">
