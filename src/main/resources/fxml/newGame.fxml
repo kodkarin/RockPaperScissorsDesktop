@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
 <BorderPane id="newGame"
             styleClass="newGame"
             stylesheets="@/css/newGame.css"
@@ -16,17 +17,23 @@
             fx:controller="com.example.rps.controllers.NewGameWindow"
             prefHeight="400.0" prefWidth="600.0">
 
-    <HBox>
+    <HBox id="top-header" pickOnBounds="false">
         <children>
-            <ImageView id="backButton"
-                       preserveRatio="true"
-                       fitWidth="40"
-                       onMouseClicked="#backButtonClicked">
-                <image>
-                    <Image url="@../images/backbutton.png" />
-                </image>
-            </ImageView>
-
+            <Button fx:id="backButtonClicked"
+                    id="backButton"
+                    pickOnBounds="false"
+                    layoutX="10"
+                    layoutY="10"
+                    mnemonicParsing="false"
+                    focusTraversable="false">
+                <graphic>
+                    <ImageView fitHeight="20" fitWidth="50" preserveRatio="true" pickOnBounds="false">
+                        <image>
+                            <Image url="@../images/backbutton.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
         </children>
     </HBox>
 
