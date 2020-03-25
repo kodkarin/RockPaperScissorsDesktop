@@ -13,10 +13,10 @@ public class NewGameWindow extends Window {
     }
 
     public void addFriendButtonClicked() {
-        getScreenController().setWindow(ScreenController.ADD_FRIEND, "");
+        getScreenController().setWindow(ScreenController.ADD_FRIEND, getToken());
     }
 
     public void backButtonClicked() {
-        getScreenController().setWindow(ScreenController.ACTIVE_GAMES, "");
+        getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
     }
 }
