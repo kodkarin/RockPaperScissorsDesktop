@@ -56,16 +56,30 @@
     </rowConstraints>
 
     <Label fx:id="player1Label" text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
     <Label fx:id="player2Label" text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+    <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="10">
+        <VBox fx:id="player1Vbox">
+            <padding><Insets top="15" right="50" bottom="20" left="10"/></padding>
 
-    <Button fx:id="sten" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="12"
+
+        </VBox>
+        <VBox fx:id="player2Vbox">
+            <padding><Insets top="15" right="10" bottom="20" left="50"/></padding>
+
+
+        </VBox>
+    </HBox>
+
+
+
+
+    <Button fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="12"
             onAction="#handleChoiceButtons"/>
 
-    <Button fx:id="sax" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="12"
+    <Button fx:id="scissors" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="12"
              onAction="#handleChoiceButtons"/>
 
-    <Button fx:id="p&#229;se" text="p&#229;se" GridPane.columnIndex="4" GridPane.rowIndex="12"
+    <Button fx:id="paper" text="p&#229;se" GridPane.columnIndex="4" GridPane.rowIndex="12"
             onAction="#handleChoiceButtons"/>
 
     <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="13"/>

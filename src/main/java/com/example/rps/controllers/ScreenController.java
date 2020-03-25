@@ -1,6 +1,7 @@
 package com.example.rps.controllers;
 
 
+import com.example.rps.models.Game;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -47,7 +48,7 @@ public class ScreenController {
             Window window = loader.getController();
             window.init(conn, this, token);
 
-            if (!(window instanceof LoginWindow) && !(window instanceof CreateAccountWindow)) {
+            if (!(window instanceof LoginWindow) && !(window instanceof CreateAccountWindow) && !(window instanceof RulesForPlayGameWindow)) {
 
                 boolean validToken = window.validateToken(token);
 
@@ -66,6 +67,42 @@ public class ScreenController {
                 stage.setScene(scene);
                 stage.show();
             }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setWindow(String selectedWindow, String token, Game game) {
+        try {
+            URL url = new File(selectedWindow).toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(url);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+
+            Window window = loader.getController();
+            window.init(conn, this, token);
+
+            if (window instanceof GameWindow) {
+                ((GameWindow) window).initGame(game);
+            } else if (window instanceof WinnerWindow) {
+                ((WinnerWindow) window).initGame(game);
+            }
+
+            boolean validToken = window.validateToken(token);
+
+            if(!validToken) {
+                setWindow(LOGIN, "");
+            } else {
+                window.setUpWindow();
+
+                stage.setScene(scene);
+                stage.show();
+            }
+
 
 
 
