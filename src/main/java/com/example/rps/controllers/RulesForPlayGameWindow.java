@@ -19,7 +19,6 @@ public class RulesForPlayGameWindow extends Window {
 
     @FXML
     public void initialize() {
-
         try {
             File file = new File("src/main/resources/text/helpText");
             Scanner scanner = new Scanner(file);
@@ -29,6 +28,15 @@ public class RulesForPlayGameWindow extends Window {
             scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("Kan ej hitta fil");
+        }
+    }
+
+    public void backButtonClicked() {
+        if (super.previousPage == ScreenController.ACTIVE_GAMES) {
+            getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+        } else {
+            getScreenController().setWindow(ScreenController.GAME, getToken());
+            GameWindow gameWindow = new GameWindow();
         }
     }
 }
