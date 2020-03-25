@@ -1,5 +1,7 @@
 package com.example.rps.controllers;
 
+import com.example.rps.models.Game;
+
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ public class Window {
     private ScreenController screenController;
     private String token;
     public String previousPage= "";
+    public Game saveActiveGame;
 
     public Window () {
         conn = null;
