@@ -7,11 +7,12 @@ import java.io.IOException;
 public class ActiveGameWindow extends Window {
 
     public void newGameButtonClicked() {
-        getScreenController().setWindow(ScreenController.GAME, "");
+        getScreenController().setWindow(ScreenController.GAME, getToken());
     }
 
     public void helpButtonClicked() {
-       getScreenController().setWindow(ScreenController.RULES, "");
+        super.previousPage = ScreenController.ACTIVE_GAMES;
+        getScreenController().setWindow(ScreenController.RULES, getToken());
     }
 
     public void logOutButtonClicked() {
