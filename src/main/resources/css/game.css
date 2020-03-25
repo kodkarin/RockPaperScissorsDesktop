@@ -10,5 +10,8 @@ Button {
 }
 #button1 {
     -fx-color: #4879B8;
+}
 
+Button:hover {
+    -fx-color: #4879B8;
 }
