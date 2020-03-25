@@ -1,5 +1,6 @@
 package com.example.rps.controllers;
 
+import com.example.rps.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -13,6 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class RulesForPlayGameWindow extends Window {
+
+    public Game saveGameFromHelpButtonClicked;
 
     @FXML
     private TextArea textArea;
@@ -36,7 +39,7 @@ public class RulesForPlayGameWindow extends Window {
             getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
         } else {
             getScreenController().setWindow(ScreenController.GAME, getToken());
-            GameWindow gameWindow = new GameWindow();
+            saveGameFromHelpButtonClicked = super.saveActiveGame;
         }
     }
 }
