@@ -1,5 +1,7 @@
 package com.example.rps.controllers;
 
+import com.example.rps.models.Game;
+
 import java.awt.*;
 
 public class WinnerWindow extends Window {
@@ -15,4 +17,6 @@ public class WinnerWindow extends Window {
     public void activeGamesButtonClicked() {
         getScreenController().setWindow(ScreenController.ACTIVE_GAMES, "");
     }
+
+    public void initGame(Game game) {}
 }
