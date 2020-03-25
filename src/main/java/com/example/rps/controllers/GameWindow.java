@@ -328,4 +328,9 @@ public class GameWindow extends Window {
         getScreenController().setWindow(ScreenController.WINNER, getToken(), game);
     }
 
+    public void helpButtonClicked() {
+        getScreenController().setWindow(ScreenController.RULES, getToken());
+        super.saveActiveGame = game;
+    }
+
 }
