@@ -10,6 +10,7 @@ public class Window {
     private Connection conn;
     private ScreenController screenController;
     private String token;
+    public String previousPage= "";
 
     public Window () {
         conn = null;
