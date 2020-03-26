@@ -84,7 +84,8 @@
 
     <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
 
-    <Button fx:id="rules" text="Spelregler" GridPane.columnIndex="4" GridPane.rowIndex="14"/>
+    <Button fx:id="rules" text="Spelregler" GridPane.columnIndex="4" GridPane.rowIndex="14"
+            onAction="#helpButtonClicked"/>
 
 
 </GridPane>

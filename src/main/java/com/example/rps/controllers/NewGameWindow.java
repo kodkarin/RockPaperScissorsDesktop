@@ -1,10 +1,13 @@
 package com.example.rps.controllers;
 import com.example.rps.models.Player;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -32,6 +35,15 @@ public class NewGameWindow extends Window {
         PreparedStatement getFriendRequests = null;
         ResultSet friendsResults = null;
         ResultSet requestsResults = null;
+        friendsListView.getItems().clear();
+        requestsListView.getItems().clear();
+        acceptFriendRequest.setDisable(true);
+        rejectFriendRequest.setDisable(true);
+        inviteButton.setDisable(true);
+        requestsListView.setVisible(false);
+        requestLabel.setVisible(false);
+        acceptFriendRequest.setVisible(false);
+        rejectFriendRequest.setVisible(false);
 
         try {
             getFriends = getConnection().prepareStatement("SELECT * FROM users INNER JOIN friends ON friends.player2 = users.id" +
@@ -87,18 +99,77 @@ public class NewGameWindow extends Window {
     }
 
     @FXML
-    public void activateInviteFriendButton() {
+    private void activateInviteFriendButton() {
         inviteButton.setDisable(false);
         acceptFriendRequest.setDisable(true);
         rejectFriendRequest.setDisable(true);
     }
 
     @FXML
-    public void activateRequestButtons() {
+    private void activateRequestButtons() {
         acceptFriendRequest.setDisable(false);
         rejectFriendRequest.setDisable(false);
         inviteButton.setDisable(true);
     }
+
+    @FXML
+    private void handleFriendRequestButtons(ActionEvent event) {
+        Player friendRequest = requestsListView.getSelectionModel().getSelectedItem();
+
+        PreparedStatement acceptFriendRequestStatement = null;
+        PreparedStatement acceptFriendRequestStatement2 = null;
+        PreparedStatement removeRequestStatement = null;
+
+        Button button = (Button) event.getSource();
+        String buttonId = button.getId();
+
+        try {
+
+            getConnection().setAutoCommit(false);
+
+            if (buttonId.equals("acceptFriendRequest")) {
+                String sql = "INSERT INTO friends (player1, player2, victories) VALUES (?, ?, 0);";
+                acceptFriendRequestStatement = getConnection().prepareStatement(sql);
+                acceptFriendRequestStatement.setInt(1, getUserId(getToken()));
+                acceptFriendRequestStatement.setInt(2, friendRequest.getUserId());
+                acceptFriendRequestStatement.executeUpdate();
+
+                acceptFriendRequestStatement2 = getConnection().prepareStatement(sql);
+                acceptFriendRequestStatement2.setInt(1, friendRequest.getUserId());
+                acceptFriendRequestStatement2.setInt(2, getUserId(getToken()));
+                acceptFriendRequestStatement2.executeUpdate();
+            }
+
+            removeRequestStatement = getConnection().prepareStatement("DELETE FROM friend_requests WHERE player1 = ? " +
+                    "AND requested_friend = ?");
+            removeRequestStatement.setInt(1, friendRequest.getUserId());
+            removeRequestStatement.setInt(2, getUserId(getToken()));
+            removeRequestStatement.executeUpdate();
+
+            getConnection().commit();
+            setUpWindow();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(acceptFriendRequestStatement != null) {
+                    acceptFriendRequestStatement.close();
+                }
+                if(acceptFriendRequestStatement2 != null) {
+                    acceptFriendRequestStatement2.close();
+                }
+                if (removeRequestStatement != null) {
+                    removeRequestStatement.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+
+    }
+
 
     public void inviteFriendAndStartGame() {
         //skriv metod som startar nytt spel med en vän

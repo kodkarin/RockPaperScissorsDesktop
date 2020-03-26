@@ -41,7 +41,9 @@ public class GameWindow extends Window {
     private Button paper;
     @FXML
     private Label resultLabel;
+
     public static final int USER_ID_FOR_CPU_PLAYER = 3;
+
     private Game game = null;
     private int completedRounds = 0;
     private int scorePlayer1 = 0;
@@ -188,31 +190,7 @@ public class GameWindow extends Window {
         setUpGameWindow();
     }
 
-    private int getUserId(String token) {
-        PreparedStatement getUserId = null;
-        Connection conn = getConnection();
-        int userId = -1;
-        try {
-            getUserId = conn.prepareStatement("SELECT user_id FROM tokens WHERE value = ?");
-            getUserId.setString(1, token);
-            ResultSet results = getUserId.executeQuery();
-            if (results.next()) {
-                userId = results.getInt(1);
-            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (getUserId != null) {
-                try {
-                    getUserId.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        return userId;
-    }
 
     private void addMoveToDatabase (int playerId, int move, int round) {
         PreparedStatement insertMove = null;
@@ -328,6 +306,7 @@ public class GameWindow extends Window {
         getScreenController().setWindow(ScreenController.WINNER, getToken(), game);
     }
 
+    @FXML
     public void helpButtonClicked() {
         getScreenController().setWindow(ScreenController.RULES, getToken());
         super.saveActiveGame = game;

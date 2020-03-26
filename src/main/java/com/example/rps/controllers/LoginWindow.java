@@ -76,7 +76,7 @@ public class LoginWindow extends Window {
 
                 setToken.executeUpdate();
 
-                getScreenController().setWindow(ScreenController.ACTIVE_GAMES, token);
+                getScreenController().setWindow(ScreenController.NEW_GAME, token);
             }
 
         } catch (Exception e) {

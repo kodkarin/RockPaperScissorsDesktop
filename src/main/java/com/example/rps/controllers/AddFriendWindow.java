@@ -211,30 +211,4 @@ public class AddFriendWindow extends Window {
         }
 
     }
-
-    private int getUserId(String token) {
-        PreparedStatement getUserId = null;
-        Connection conn = getConnection();
-        int userId = -1;
-        try {
-            getUserId = conn.prepareStatement("SELECT user_id FROM tokens WHERE value = ?");
-            getUserId.setString(1, token);
-            ResultSet results = getUserId.executeQuery();
-            results.next();
-            userId = results.getInt(1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (getUserId != null) {
-                try {
-                    getUserId.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        return userId;
-    }
-
-
 }
