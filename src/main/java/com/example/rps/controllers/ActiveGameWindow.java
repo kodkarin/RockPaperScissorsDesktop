@@ -7,7 +7,7 @@ import java.io.IOException;
 public class ActiveGameWindow extends Window {
 
     public void newGameButtonClicked() {
-        getScreenController().setWindow(ScreenController.GAME, getToken());
+        getScreenController().setWindow(ScreenController.NEW_GAME, getToken());
     }
 
     public void helpButtonClicked() {

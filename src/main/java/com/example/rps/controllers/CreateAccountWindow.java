@@ -92,11 +92,14 @@ public class CreateAccountWindow extends Window {
 
             PreparedStatement checkIfUserExistsStatement = null;
             PreparedStatement createAccountStatement = null;
+            PreparedStatement makefriendsWithCpu = null;
+            PreparedStatement cpuMakeFriendsWithYou = null;
             PreparedStatement setToken = null;
             PreparedStatement getUserId = null;
 
             try {
                 Connection conn = getConnection();
+                conn.setAutoCommit(false);
                 checkIfUserExistsStatement = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
                 checkIfUserExistsStatement.setString(1, username);
 
@@ -155,6 +158,20 @@ public class CreateAccountWindow extends Window {
                     setToken.setString(2, token);
 
                     setToken.executeUpdate();
+
+                    String makeFriendsSql = "INSERT INTO friends (player1, player2, victories) VALUES (?, ?, 0);";
+                    makefriendsWithCpu = conn.prepareStatement(makeFriendsSql);
+                    makefriendsWithCpu.setInt(1, userId);
+                    makefriendsWithCpu.setInt(2, GameWindow.USER_ID_FOR_CPU_PLAYER);
+                    makefriendsWithCpu.executeUpdate();
+
+                    cpuMakeFriendsWithYou = conn.prepareStatement(makeFriendsSql);
+                    cpuMakeFriendsWithYou.setInt(1, GameWindow.USER_ID_FOR_CPU_PLAYER);
+                    cpuMakeFriendsWithYou.setInt(2, userId);
+                    cpuMakeFriendsWithYou.executeUpdate();
+
+                    conn.commit();
+                    conn.setAutoCommit(true);
 
                     getScreenController().setWindow(ScreenController.ACTIVE_GAMES, token);
                 }

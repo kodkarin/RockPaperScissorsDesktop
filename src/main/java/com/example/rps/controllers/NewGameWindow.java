@@ -171,12 +171,55 @@ public class NewGameWindow extends Window {
     }
 
 
+    @FXML
     public void inviteFriendAndStartGame() {
-        //skriv metod som startar nytt spel med en vän
+        Player friendToInvite = friendsListView.getSelectionModel().getSelectedItem();
+        PreparedStatement inviteFriendStatement = null;
+
+        try {
+            inviteFriendStatement = getConnection().prepareStatement("INSERT INTO invitations VALUES (?, ?);");
+            inviteFriendStatement.setInt(1,getUserId(getToken()));
+            inviteFriendStatement.setInt(2, friendToInvite.getUserId());
+            inviteFriendStatement.executeUpdate();
+
+            getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(inviteFriendStatement != null) {
+                    inviteFriendStatement.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
+    @FXML
     public void playWithCpuAndStartGame() {
-        //skriv metod som startar nytt spel mot datorn
+        Player cpuPlayer = new Player("CPU", GameWindow.USER_ID_FOR_CPU_PLAYER);
+        PreparedStatement startGameAgainstCpuStatement = null;
+
+        try {
+            startGameAgainstCpuStatement = getConnection().prepareStatement("INSERT INTO matches (player1, player2) " +
+                    "VALUES (?, ?);");
+            startGameAgainstCpuStatement.setInt(1, getUserId(getToken()));
+            startGameAgainstCpuStatement.setInt(2, GameWindow.USER_ID_FOR_CPU_PLAYER);
+            startGameAgainstCpuStatement.executeUpdate();
+
+            getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(startGameAgainstCpuStatement != null) {
+                    startGameAgainstCpuStatement.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public void addFriendButtonClicked() {
