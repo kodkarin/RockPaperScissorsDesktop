@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class RulesForPlayGameWindow extends Window {
 
-    public Game saveGameFromHelpButtonClicked;
+    private Game gameFromPreviousWindow = null;
 
     @FXML
     private TextArea textArea;
@@ -30,16 +30,19 @@ public class RulesForPlayGameWindow extends Window {
             textArea.setText(text);
             scanner.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Kan ej hitta fil");
+            System.out.println("Can´t find file");
         }
     }
 
+    public void initGame(Game game) {
+        gameFromPreviousWindow = game;
+    }
+
     public void backButtonClicked() {
-        if (super.previousPage == ScreenController.ACTIVE_GAMES) {
+        if (getScreenController().getPreviousPage().equals(ScreenController.ACTIVE_GAMES)) {
             getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
         } else {
-            getScreenController().setWindow(ScreenController.GAME, getToken());
-            saveGameFromHelpButtonClicked = super.saveActiveGame;
+            getScreenController().setWindow(ScreenController.GAME, getToken(), gameFromPreviousWindow);
         }
     }
 }

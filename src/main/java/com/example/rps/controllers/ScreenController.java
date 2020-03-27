@@ -16,6 +16,7 @@ public class ScreenController {
 
     private Connection conn;
     private Stage stage;
+    private String previousPage= "";
 
 
     public static final String LOGIN = "src/main/resources/fxml/login.fxml";
@@ -112,4 +113,11 @@ public class ScreenController {
 
     }
 
+    public String getPreviousPage() {
+        return previousPage;
+    }
+
+    public void setPreviousPage(String previousPage) {
+        this.previousPage = previousPage;
+    }
 }
