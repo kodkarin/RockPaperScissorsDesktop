@@ -308,8 +308,7 @@ public class GameWindow extends Window {
 
     @FXML
     public void helpButtonClicked() {
-        getScreenController().setWindow(ScreenController.RULES, getToken());
-        super.saveActiveGame = game;
+        getScreenController().setWindow(ScreenController.RULES, getToken(), game);
     }
 
 }
