@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
 <BorderPane id="winner"
             styleClass="winner"
             stylesheets="@/css/winner.css"
@@ -23,15 +24,20 @@
 
     <center>
         <VBox id="VboxCenter" spacing="5" alignment="center">
-            <ImageView>
-
-            </ImageView>
+            <children>
+                <ImageView fx:id="imageView" layoutX="29.0" layoutY="44.0" fitHeight="224.0" fitWidth="400.0" preserveRatio="true">
+                    <image>
+                        <Image url="http://bestanimations.com/Holidays/Fireworks/fireworks/ba-awesome-colorful-fireworks-animated-gif-image-s.gif#.Xn9PpklUp_w.link" />
+                    </image>
+                </ImageView>
+            </children>
 
             <padding><Insets right="225" left="225"/></padding>
-            <TextField id="textFieldActiveGameResult"></TextField>
+            <Label id="gameResultWinnerWindow"
+                    onMouseClicked="#showResultFromPreviousGame"/>
             <Label id="statisticsCurrentGame" text="Statistics"/>
-            <TextField id="numberOfWinningsActivePlayer"></TextField>
-            <TextField id="numberOfLossesActivePlayer"></TextField>
+            <Label id="showNumberOfWinningsForActivePlayer"></Label>
+            <Label id="numberOfLossesActivePlayer"></Label>
         </VBox>
     </center>
 
