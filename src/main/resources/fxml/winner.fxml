@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ListView?>
 <BorderPane id="winner"
             styleClass="winner"
             stylesheets="@/css/winner.css"
@@ -33,11 +34,10 @@
             </children>
 
             <padding><Insets right="225" left="225"/></padding>
-            <Label id="gameResultWinnerWindow"
-                    onMouseClicked="#showResultFromPreviousGame"/>
+            <Label fx:id="showResultFromPreviousGame" />
             <Label id="statisticsCurrentGame" text="Statistics"/>
-            <Label id="showNumberOfWinningsForActivePlayer"></Label>
-            <Label id="numberOfLossesActivePlayer"></Label>
+            <Label fx:id="showTotalNumberOfWinningsForActivePlayer" />
+            <Label fx:id="showTotalNumberOfLossesForActivePlayer" />
         </VBox>
     </center>
 
