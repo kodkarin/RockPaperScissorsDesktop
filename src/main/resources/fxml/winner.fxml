@@ -19,7 +19,7 @@
 
     <top>
         <HBox id="headerPosition">
-            <Label id="header" text="Congratulations, you won!"/>
+            <Label fx:id="labelHeaderWinnerWindow" />
         </HBox>
     </top>
 
@@ -34,10 +34,10 @@
             </children>
 
             <padding><Insets right="225" left="225"/></padding>
-            <Label fx:id="showResultFromPreviousGame" />
+            <Label fx:id="labelGameResultWinnerWindow" />
             <Label id="statisticsCurrentGame" text="Statistics"/>
-            <Label fx:id="showTotalNumberOfWinningsForActivePlayer" />
-            <Label fx:id="showTotalNumberOfLossesForActivePlayer" />
+            <Label fx:id="labelShowTotalNumberOfWinningsForActivePlayer" />
+            <Label fx:id="labelShowTotalNumberOfLossesForActivePlayer" />
         </VBox>
     </center>
 
