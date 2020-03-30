@@ -36,18 +36,20 @@ public class WinnerWindow extends Window {
 
     Game game;
 
-    public void initGame(Game game) {
+    public void initGame(Game game) throws SQLException {
         this.game = game;
         setUpWinnerWindow();
     }
 
-    public void setUpWinnerWindow() {
+    public void setUpWinnerWindow() throws SQLException {
         this.userIdPlayer1 = game.getPlayer1().getUserId();
         this.userIdPlayer2 = game.getPlayer2().getUserId();
         this.userIdCpuPlayer = GameWindow.USER_ID_FOR_CPU_PLAYER;
         this.numberOfWinningsString = String.valueOf(numberOfWinningsString);
         this.numberOfLossesString = String.valueOf(numberOfLossesString);
         this.showResultFromPreviousGame();
+        this.showTotalNumberOfWinningsForActivePlayer();
+        this.showTotalNumberOfLossesForActivePlayer();
         this.labelGameResultWinnerWindow.setText(game.getScorePlayer1() + " - " + game.getScorePlayer2());
         this.labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
         this.labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
