@@ -13,13 +13,10 @@ Button:hover {
     -fx-color: #4879B8;
 }
 
-#header {
-    -fx-font: normal bold 20px 'arial';
-}
-
 #headerPosition {
     -fx-alignment: center;
     -fx-padding: 10 0 5 10;
+    -fx-font: normal bold 20px 'arial';
 }
 
 #statisticsCurrentGame {
