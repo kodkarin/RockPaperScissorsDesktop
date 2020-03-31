@@ -52,6 +52,14 @@ public class Game {
         return scorePlayer2;
     }
 
+    public void increaseScorePlayer1() {
+        scorePlayer1++;
+    }
+
+    public void increaseScorePlayer2() {
+        scorePlayer2++;
+    }
+
     @Override
     public String toString() {
         String resultat1 = String.valueOf(scorePlayer1);

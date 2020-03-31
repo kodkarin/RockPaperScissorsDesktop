@@ -48,17 +48,14 @@ public class GameWindow extends Window {
     private int completedRounds = 0;
     private int scorePlayer1 = 0;
     private int scorePlayer2 = 0;
-    private int userIdForOpponent = 0;
     private boolean isPlayer1 = false;
 
     public void initGame(Game game) {
         this.game = game;
         if(getUserId(getToken()) == game.getPlayer1().getUserId()) {
             isPlayer1 = true;
-            userIdForOpponent = game.getPlayer2().getUserId();
         } else if (getUserId(getToken()) == game.getPlayer2().getUserId()) {
             isPlayer1 = false;
-            userIdForOpponent = game.getPlayer1().getUserId();
         } else {
             getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
         }
@@ -220,6 +217,9 @@ public class GameWindow extends Window {
 
             insertMove.executeUpdate();
 
+            int userIdForOpponent = playerId == game.getPlayer2().getUserId() ? game.getPlayer1().getUserId() : game.getPlayer2().getUserId();
+
+
             checkIfOpponentHasMadeMove = getConnection().prepareStatement("SELECT * FROM moves WHERE match_id = ? AND user_id = ? AND round_no = ?; ");
             checkIfOpponentHasMadeMove.setInt(1, game.getGameID());
             checkIfOpponentHasMadeMove.setInt(2, userIdForOpponent);
@@ -229,7 +229,7 @@ public class GameWindow extends Window {
             if(results.next()) {
                 int roundWinner = 0;
                 int winnerId = 0;
-                if(isPlayer1) {
+                if(playerId == game.getPlayer1().getUserId()) {
                     roundWinner = game.compareChoices(move, results.getInt("value"));
                 } else {
                     roundWinner = game.compareChoices(results.getInt("value"), move);
@@ -240,11 +240,23 @@ public class GameWindow extends Window {
                     winnerId = game.getPlayer2().getUserId();
                 }
 
-                insertRoundWinner = getConnection().prepareStatement("UPDATE rounds SET round_winner = ? WHERE match_id = ? AND round_no = ?;");
-                insertRoundWinner.setInt(1, winnerId);
-                insertRoundWinner.setInt(2, game.getGameID());
-                insertRoundWinner.setInt(3, round);
-                insertRoundWinner.executeUpdate();
+                if (roundWinner > 0) {
+                    insertRoundWinner = getConnection().prepareStatement("INSERT INTO rounds VALUES (?, ?, ?);");
+
+                    insertRoundWinner.setInt(1, game.getGameID());
+                    insertRoundWinner.setInt(2, round);
+                    insertRoundWinner.setInt(3, winnerId);
+
+                    insertRoundWinner.executeUpdate();
+                } else {
+                    insertRoundWinner = getConnection().prepareStatement("INSERT INTO rounds (match_id, round_no) VALUES (?, ?);");
+
+                    insertRoundWinner.setInt(1, game.getGameID());
+                    insertRoundWinner.setInt(2, round);
+
+                    insertRoundWinner.executeUpdate();
+                }
+
             }
 
             getConnection().commit();

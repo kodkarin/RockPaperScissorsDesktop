@@ -58,7 +58,6 @@ public class ActiveGameWindow extends Window {
             while(allGameResults.next()) {
                 int gameId = allGameResults.getInt("id");
                 int player1Id = allGameResults.getInt("player1");
-                boolean isPlayer1 = (player1Id == getUserId(getToken()));
                 String player1Username = "";
                 int player2Id = allGameResults.getInt("player2");
                 String player2Username = "";
@@ -79,6 +78,8 @@ public class ActiveGameWindow extends Window {
                     Player player1 = new Player(player1Username, player1Id);
                     Player player2 = new Player(player2Username, player2Id);
                     Game game = new Game(gameId, player1, player2);
+                    setGameScore(game);
+
                     if (allGameResults.getInt("winner") > 0) {
                         finishedGamesListView.getItems().add(game);
                     } else {
@@ -104,6 +105,8 @@ public class ActiveGameWindow extends Window {
                                     } else {
                                         makeMoveListView.getItems().add(game);
                                     }
+                                } else {
+                                    makeMoveListView.getItems().add(game);
                                 }
                             } else if (userId1 == getUserId(getToken())) {
                                 // Bara en spelare har gjort drag hittills i matchen. Måste kolla om det är den inloggade spelaren eller motståndaren
@@ -170,6 +173,42 @@ public class ActiveGameWindow extends Window {
         }
 
 
+    }
+
+    private void setGameScore(Game game) {
+        PreparedStatement getAllRounds = null;
+        ResultSet results = null;
+        int userIdPlayer1 = game.getPlayer1().getUserId();
+        try {
+            getAllRounds = getConnection().prepareStatement("SELECT * FROM rounds WHERE match_id = ?;");
+            getAllRounds.setInt(1, game.getGameID());
+
+            results = getAllRounds.executeQuery();
+            while (results.next()) {
+                if (results.getInt("round_winner") > 0) {
+                    int winner = results.getInt("round_winner") == userIdPlayer1 ? 1 : 2;
+                    if (winner == 1) {
+                        game.increaseScorePlayer1();
+                    } else {
+                        game.increaseScorePlayer2();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(getAllRounds != null) {
+                    getAllRounds.close();
+                }
+                if (results != null) {
+                    results.close();
+                }
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     @FXML
