@@ -131,7 +131,7 @@ public class WinnerWindow extends Window {
     }
 
     public void activeGamesButtonClicked() {
-        getScreenController().setWindow(ScreenController.ACTIVE_GAMES, "");
+        getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
     }
 
     public void showResultFromPreviousGame() {
