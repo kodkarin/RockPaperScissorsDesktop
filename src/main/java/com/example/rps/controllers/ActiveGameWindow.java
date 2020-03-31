@@ -48,7 +48,7 @@ public class ActiveGameWindow extends Window {
         ResultSet friendRequestsResults = null;
 
         try {
-            getAllGames = getConnection().prepareStatement("SELECT * FROM matches WHERE winner IS NULL AND (player1 = ? OR player2 = ?);");
+            getAllGames = getConnection().prepareStatement("SELECT * FROM matches WHERE player1 = ? OR player2 = ?");
             getAllGames.setInt(1,getUserId(getToken()));
             getAllGames.setInt(2, getUserId(getToken()));
 
