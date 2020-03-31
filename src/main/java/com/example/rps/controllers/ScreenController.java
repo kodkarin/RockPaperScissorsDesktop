@@ -91,6 +91,8 @@ public class ScreenController {
                 ((GameWindow) window).initGame(game);
             } else if (window instanceof WinnerWindow) {
                 ((WinnerWindow) window).initGame(game);
+            } else if (window instanceof RulesForPlayGameWindow) {
+                ((RulesForPlayGameWindow) window).initGame(game);
             }
 
             boolean validToken = window.validateToken(token);
