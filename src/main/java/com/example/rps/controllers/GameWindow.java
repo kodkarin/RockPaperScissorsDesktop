@@ -235,8 +235,10 @@ public class GameWindow extends Window {
                     roundWinner = game.compareChoices(results.getInt("value"), move);
                 }
                 if (roundWinner == Game.PLAYER1_WINS) {
+                    game.increaseScorePlayer1();
                     winnerId = game.getPlayer1().getUserId();
                 } else if (roundWinner == Game.PLAYER2_WINS) {
+                    game.increaseScorePlayer2();
                     winnerId = game.getPlayer2().getUserId();
                 }
 
