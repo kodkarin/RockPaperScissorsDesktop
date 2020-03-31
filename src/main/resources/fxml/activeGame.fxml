@@ -24,6 +24,26 @@
         </HBox>
     </top>
 
+    <center>
+        <VBox>
+            <Label fx:id="makeMoveLabel"
+                   text="Din tur att g&#246;ra ett drag:"/>
+            <ListView fx:id="makeMoveListView"
+                      onMouseClicked="#openGame"/>
+            <Label fx:id="opponentsTurnLabel"
+                   text="Motst&#229;ndarens tur"/>
+            <ListView fx:id="opponentsTurnListView"
+                      onMouseClicked="#openGame"/>
+            <Label fx:id="finishedGamesLabel"
+                   text="Avslutade matcher"/>
+            <ListView fx:id="finishedGamesListView"
+                      onMouseClicked="#openFinishedGame"/>
+            <Button fx:id="newFriendRequestButton"
+                    text="Det finns ny v&#228;nf&#246;rfr&#229;gan"
+                    onAction="#showFriendRequests"/>
+        </VBox>
+
+    </center>
     <bottom>
             <HBox>
                 <Button id="newGameButton"

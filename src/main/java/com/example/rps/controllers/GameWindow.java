@@ -48,9 +48,20 @@ public class GameWindow extends Window {
     private int completedRounds = 0;
     private int scorePlayer1 = 0;
     private int scorePlayer2 = 0;
+    private int userIdForOpponent = 0;
+    private boolean isPlayer1 = false;
 
     public void initGame(Game game) {
         this.game = game;
+        if(getUserId(getToken()) == game.getPlayer1().getUserId()) {
+            isPlayer1 = true;
+            userIdForOpponent = game.getPlayer2().getUserId();
+        } else if (getUserId(getToken()) == game.getPlayer2().getUserId()) {
+            isPlayer1 = false;
+            userIdForOpponent = game.getPlayer1().getUserId();
+        } else {
+            getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+        }
         setUpGameWindow();
     }
 
@@ -128,7 +139,7 @@ public class GameWindow extends Window {
                 System.out.println("Player1Vbox.size: " + player1Vbox.getChildren().size());
                 System.out.println("Player2Vbox.size: " + player2Vbox.getChildren().size());
                 if(player1Vbox.getChildren().size() != player2Vbox.getChildren().size()) {
-                    if (getUserId(getToken()) == game.getPlayer1().getUserId()) {
+                    if (isPlayer1) {
                         if(player2Vbox.getChildren().size() > player1Vbox.getChildren().size()) {
                             player2Vbox.getChildren().get(player2Vbox.getChildren().size()-1).setVisible(false);
                         } else {
@@ -137,7 +148,7 @@ public class GameWindow extends Window {
                             paper.setDisable(true);
                         }
 
-                    } else if (getUserId(getToken()) == game.getPlayer2().getUserId()) {
+                    } else {
                         if (player1Vbox.getChildren().size() > player2Vbox.getChildren().size()) {
                             player1Vbox.getChildren().get(player1Vbox.getChildren().size() - 1).setVisible(false);
                         } else {
@@ -194,23 +205,69 @@ public class GameWindow extends Window {
 
     private void addMoveToDatabase (int playerId, int move, int round) {
         PreparedStatement insertMove = null;
+        PreparedStatement checkIfOpponentHasMadeMove = null;
+        ResultSet results = null;
+        PreparedStatement insertRoundWinner = null;
         try {
+            getConnection().setAutoCommit(false);
+
             insertMove = getConnection().prepareStatement("INSERT INTO moves(match_id, user_id, round_no, value) VALUES (?, ?, ?, ?)");
+            System.out.println("InsertMove: " + game.getGameID());
             insertMove.setInt(1, game.getGameID());
             insertMove.setInt(2, playerId);
             insertMove.setInt(3, round);
             insertMove.setInt(4, move);
 
             insertMove.executeUpdate();
+
+            checkIfOpponentHasMadeMove = getConnection().prepareStatement("SELECT * FROM moves WHERE match_id = ? AND user_id = ? AND round_no = ?; ");
+            checkIfOpponentHasMadeMove.setInt(1, game.getGameID());
+            checkIfOpponentHasMadeMove.setInt(2, userIdForOpponent);
+            checkIfOpponentHasMadeMove.setInt(3, round);
+
+            results = checkIfOpponentHasMadeMove.executeQuery();
+            if(results.next()) {
+                int roundWinner = 0;
+                int winnerId = 0;
+                if(isPlayer1) {
+                    roundWinner = game.compareChoices(move, results.getInt("value"));
+                } else {
+                    roundWinner = game.compareChoices(results.getInt("value"), move);
+                }
+                if (roundWinner == Game.PLAYER1_WINS) {
+                    winnerId = game.getPlayer1().getUserId();
+                } else if (roundWinner == Game.PLAYER2_WINS) {
+                    winnerId = game.getPlayer2().getUserId();
+                }
+
+                insertRoundWinner = getConnection().prepareStatement("UPDATE rounds SET round_winner = ? WHERE match_id = ? AND round_no = ?;");
+                insertRoundWinner.setInt(1, winnerId);
+                insertRoundWinner.setInt(2, game.getGameID());
+                insertRoundWinner.setInt(3, round);
+                insertRoundWinner.executeUpdate();
+            }
+
+            getConnection().commit();
+            getConnection().setAutoCommit(true);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (insertMove != null) {
-                try {
+            try {
+                if (insertMove != null) {
                     insertMove.close();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
+                if (checkIfOpponentHasMadeMove != null) {
+                    checkIfOpponentHasMadeMove.close();
+                }
+                if (insertRoundWinner != null) {
+                    insertRoundWinner.close();
+                }
+                if (results != null) {
+                    results.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }
@@ -219,8 +276,9 @@ public class GameWindow extends Window {
         PreparedStatement getMaxRoundNumber = null;
         int maxRoundNumber = 0;
         try {
-            getMaxRoundNumber = getConnection().prepareStatement("SELECT MAX(round_no) FROM moves WHERE user_id = ?");
-            getMaxRoundNumber.setInt(1, playerID);
+            getMaxRoundNumber = getConnection().prepareStatement("SELECT MAX(round_no) FROM moves WHERE match_id = ? AND user_id = ?");
+            getMaxRoundNumber.setInt(1, game.getGameID());
+            getMaxRoundNumber.setInt(2, playerID);
 
             ResultSet results = getMaxRoundNumber.executeQuery();
             if (results.next()) {
@@ -253,7 +311,7 @@ public class GameWindow extends Window {
         PreparedStatement incrementVictories = null;
         int victories = 0;
         try {
-            insertWinner = getConnection().prepareStatement("INSERT INTO matches (winner) VALUES (?) WHERE id = ?");
+            insertWinner = getConnection().prepareStatement("UPDATE matches SET winner = ? WHERE id = ?");
             insertWinner.setInt(1, winner);
             insertWinner.setInt(2, game.getGameID());
             insertWinner.executeUpdate();
