@@ -24,13 +24,13 @@
         <ColumnConstraints minWidth="50" prefWidth="50"
                            maxWidth="Infinity" halignment="CENTER">
         </ColumnConstraints>
-        <ColumnConstraints minWidth="50" prefWidth="50"
+        <ColumnConstraints minWidth="70" prefWidth="70"
                            maxWidth="Infinity" halignment="CENTER">
         </ColumnConstraints>
         <ColumnConstraints minWidth="50" prefWidth="50"
                            maxWidth="Infinity" halignment="CENTER">
         </ColumnConstraints>
-        <ColumnConstraints minWidth="50" prefWidth="50"
+        <ColumnConstraints minWidth="70" prefWidth="70"
                            maxWidth="Infinity" halignment="CENTER">
         </ColumnConstraints>
         <ColumnConstraints minWidth="50" prefWidth="50"
@@ -41,14 +41,12 @@
     <rowConstraints>
         <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
         <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="25" prefHeight="25" maxHeight="Infinity"/>
+        <RowConstraints minHeight="25" prefHeight="25" maxHeight="Infinity"/>
+        <RowConstraints minHeight="25" prefHeight="25" maxHeight="Infinity"/>
+        <RowConstraints minHeight="25" prefHeight="25" maxHeight="Infinity"/>
+        <RowConstraints minHeight="25" prefHeight="25" maxHeight="Infinity"/>
+        <RowConstraints minHeight="30" prefHeight="30" maxHeight="Infinity"/>
         <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
 
     </rowConstraints>
@@ -69,7 +67,7 @@
     <Label fx:id="player1Label" text="Player 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Label fx:id="player2Label" text="Player 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
     <ScrollPane  fx:id="scrollPane" id="scrollPane"
-                 GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="7">
+                 GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="5">
         <HBox >
             <VBox fx:id="player1Vbox" >
                 <padding><Insets top="15" right="50" bottom="20" left="10"/></padding>
@@ -88,19 +86,37 @@
 
 
 
-    <Button fx:id="rock" text="Rock" GridPane.columnIndex="0" GridPane.rowIndex="9"
-            onAction="#handleChoiceButtons"/>
+    <Button fx:id="rock" GridPane.columnIndex="0" GridPane.rowIndex="7"
+            onAction="#handleChoiceButtons">
+        <graphic>
+            <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                <Image url="@../images/rock.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button fx:id="paper" text="Paper" GridPane.columnIndex="4" GridPane.rowIndex="9"
-            onAction="#handleChoiceButtons"/>
+    <Button fx:id="paper" GridPane.columnIndex="2" GridPane.rowIndex="7"
+            onAction="#handleChoiceButtons">
+        <graphic>
+            <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                <Image url="@../images/paper.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 
-    <Button fx:id="scissors" text="Scissors" GridPane.columnIndex="2" GridPane.rowIndex="9"
-             onAction="#handleChoiceButtons"/>
+    <Button fx:id="scissors" GridPane.columnIndex="4" GridPane.rowIndex="7"
+            onAction="#handleChoiceButtons">
+        <graphic>
+            <ImageView fitHeight="40" fitWidth="40" preserveRatio="true">
+                <Image url="@../images/scissors.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
 
 
-    <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
+    <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
 
-    <Button fx:id="rules" text="Help" GridPane.columnIndex="4" GridPane.rowIndex="11"
+    <Button fx:id="rules" text="Help" GridPane.columnIndex="4" GridPane.rowIndex="9"
             onAction="#helpButtonClicked"/>
 
 
