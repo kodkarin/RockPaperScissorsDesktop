@@ -79,8 +79,8 @@ public class GameWindow extends Window {
             getMoves = getConnection().prepareStatement("SELECT * FROM moves WHERE match_id = ? ORDER BY round_no");
             getMoves.setInt(1, game.getGameID());
             ResultSet results = getMoves.executeQuery();
-            int[] movesPlayer1 = new int[30];
-            int[] movesPlayer2 = new int[30];
+            int[] movesPlayer1 = new int[5];
+            int[] movesPlayer2 = new int[5];
 
             while(results.next()) {
                 int move = results.getInt("value");
@@ -99,6 +99,17 @@ public class GameWindow extends Window {
                 Label tempLabel = new Label(text);
                 int playerId = results.getInt("user_id");
                 int roundNumber = results.getInt("round_no");
+                if(roundNumber >= movesPlayer1.length) {
+                    int[] temp = new int[movesPlayer1.length * 2];
+                    System.arraycopy(movesPlayer1, 0, temp, 0, movesPlayer1.length);
+                    movesPlayer1 = temp;
+                }
+                if(roundNumber >= movesPlayer2.length) {
+                    int[] temp = new int[movesPlayer2.length * 2];
+                    System.arraycopy(movesPlayer2, 0, temp, 0, movesPlayer2.length);
+                    movesPlayer2 = temp;
+                }
+
                 if (roundNumber > maxRound) {
                     maxRound = roundNumber;
                 } else if (roundNumber == maxRound) {
@@ -379,8 +390,12 @@ public class GameWindow extends Window {
     }
 
     @FXML
+    private void backButtonClicked() {
+        getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+    }
+
+    @FXML
     public void helpButtonClicked() {
         getScreenController().setWindow(ScreenController.RULES, getToken(), game);
     }
-
 }

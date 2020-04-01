@@ -7,6 +7,8 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <GridPane id="gameGridPane"
           styleClass="gameGridPane"
           stylesheets="@/css/game.css"
@@ -39,52 +41,64 @@
     <rowConstraints>
         <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
         <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="0" prefHeight="0" maxHeight="Infinity"/>
-        <RowConstraints minHeight="30" prefHeight="30" maxHeight="Infinity"/>
-        <RowConstraints minHeight="30" prefHeight="30" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
+        <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
         <RowConstraints minHeight="20" prefHeight="20" maxHeight="Infinity"/>
 
     </rowConstraints>
 
+    <Button id="backButton"
+            GridPane.columnIndex="0"
+            GridPane.rowIndex="0"
+            onAction="#backButtonClicked"
+            pickOnBounds="false"
+            mnemonicParsing="false"
+            focusTraversable="false">
+        <graphic>
+            <ImageView fitHeight="20" fitWidth="50" preserveRatio="true">
+                <Image url="@../images/backbutton.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
     <Label fx:id="player1Label" text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Label fx:id="player2Label" text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-    <HBox GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="4" GridPane.rowSpan="10">
-        <VBox fx:id="player1Vbox">
-            <padding><Insets top="15" right="50" bottom="20" left="10"/></padding>
+    <ScrollPane  id="scrollPane" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="7">
+        <HBox >
+            <VBox fx:id="player1Vbox" >
+                <padding><Insets top="15" right="50" bottom="20" left="10"/></padding>
 
 
-        </VBox>
-        <VBox fx:id="player2Vbox">
-            <padding><Insets top="15" right="10" bottom="20" left="50"/></padding>
+            </VBox>
+            <VBox fx:id="player2Vbox">
+                <padding><Insets top="15" right="10" bottom="20" left="50"/></padding>
 
 
-        </VBox>
-    </HBox>
+            </VBox>
+        </HBox>
+    </ScrollPane>
 
 
 
 
-    <Button fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="12"
+
+    <Button fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="9"
             onAction="#handleChoiceButtons"/>
 
-    <Button fx:id="scissors" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="12"
+    <Button fx:id="scissors" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="9"
              onAction="#handleChoiceButtons"/>
 
-    <Button fx:id="paper" text="p&#229;se" GridPane.columnIndex="4" GridPane.rowIndex="12"
+    <Button fx:id="paper" text="P&#229;se" GridPane.columnIndex="4" GridPane.rowIndex="9"
             onAction="#handleChoiceButtons"/>
 
-    <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="13"/>
+    <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
 
-    <Button fx:id="rules" text="Spelregler" GridPane.columnIndex="4" GridPane.rowIndex="14"
+    <Button fx:id="rules" text="Info" GridPane.columnIndex="4" GridPane.rowIndex="11"
             onAction="#helpButtonClicked"/>
 
 
