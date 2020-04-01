@@ -68,7 +68,8 @@
     </Button>
     <Label fx:id="player1Label" text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
     <Label fx:id="player2Label" text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-    <ScrollPane  id="scrollPane" GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="7">
+    <ScrollPane  fx:id="scrollPane" id="scrollPane"
+                 GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="7">
         <HBox >
             <VBox fx:id="player1Vbox" >
                 <padding><Insets top="15" right="50" bottom="20" left="10"/></padding>

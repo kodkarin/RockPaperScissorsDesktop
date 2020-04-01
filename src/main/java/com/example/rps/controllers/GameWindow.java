@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -41,6 +42,8 @@ public class GameWindow extends Window {
     private Button paper;
     @FXML
     private Label resultLabel;
+    @FXML
+    private ScrollPane scrollPane;
 
     public static final int USER_ID_FOR_CPU_PLAYER = 3;
 
@@ -70,6 +73,8 @@ public class GameWindow extends Window {
         scorePlayer2 = 0;
         completedRounds = 0;
         int maxRound = 0;
+        scrollPane.setVvalue(1.0);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         rock.setDisable(false);
         scissors.setDisable(false);
@@ -83,6 +88,7 @@ public class GameWindow extends Window {
             int[] movesPlayer2 = new int[5];
 
             while(results.next()) {
+
                 int move = results.getInt("value");
                 String text = "";
                 switch (move) {
