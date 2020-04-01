@@ -20,6 +20,7 @@
     <top>
         <HBox id="headerPosition">
             <Label fx:id="labelHeaderWinnerWindow" />
+            <Label fx:id="labelHeaderLossesWindow" />
         </HBox>
     </top>
 
@@ -35,8 +36,7 @@
 
             <padding><Insets right="225" left="225"/></padding>
             <Label fx:id="labelGameResultWinnerWindow" />
-            <Label fx:id="labelHeaderLossesWindow" />
-            <Label id="statisticsCurrentGame" text="Statistics"/>
+            <Label id="statisticsCurrentGame" text="Statistik"/>
             <Label fx:id="labelShowTotalNumberOfWinningsForActivePlayer" />
             <Label fx:id="labelShowTotalNumberOfLossesForActivePlayer" />
         </VBox>
