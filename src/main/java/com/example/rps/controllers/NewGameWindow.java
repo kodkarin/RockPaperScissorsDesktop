@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -125,28 +126,30 @@ public class NewGameWindow extends Window {
 
         try {
 
-            getConnection().setAutoCommit(false);
+            Connection conn = getConnection();
+            conn.setAutoCommit(false);
 
             if (buttonId.equals("acceptFriendRequest")) {
                 String sql = "INSERT INTO friends (player1, player2, victories) VALUES (?, ?, 0);";
-                acceptFriendRequestStatement = getConnection().prepareStatement(sql);
+                acceptFriendRequestStatement = conn.prepareStatement(sql);
                 acceptFriendRequestStatement.setInt(1, getUserId(getToken()));
                 acceptFriendRequestStatement.setInt(2, friendRequest.getUserId());
                 acceptFriendRequestStatement.executeUpdate();
 
-                acceptFriendRequestStatement2 = getConnection().prepareStatement(sql);
+                acceptFriendRequestStatement2 = conn.prepareStatement(sql);
                 acceptFriendRequestStatement2.setInt(1, friendRequest.getUserId());
                 acceptFriendRequestStatement2.setInt(2, getUserId(getToken()));
                 acceptFriendRequestStatement2.executeUpdate();
             }
 
-            removeRequestStatement = getConnection().prepareStatement("DELETE FROM friend_requests WHERE player1 = ? " +
+            removeRequestStatement = conn.prepareStatement("DELETE FROM friend_requests WHERE player1 = ? " +
                     "AND requested_friend = ?");
             removeRequestStatement.setInt(1, friendRequest.getUserId());
             removeRequestStatement.setInt(2, getUserId(getToken()));
             removeRequestStatement.executeUpdate();
 
-            getConnection().commit();
+            conn.commit();
+            conn.setAutoCommit(true);
             setUpWindow();
 
         } catch (Exception e) {
@@ -198,7 +201,7 @@ public class NewGameWindow extends Window {
 
     @FXML
     public void playWithCpuAndStartGame() {
-        Player cpuPlayer = new Player("CPU", GameWindow.USER_ID_FOR_CPU_PLAYER);
+
         PreparedStatement startGameAgainstCpuStatement = null;
 
         try {

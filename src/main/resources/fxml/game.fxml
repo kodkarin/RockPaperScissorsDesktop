@@ -66,8 +66,8 @@
             </ImageView>
         </graphic>
     </Button>
-    <Label fx:id="player1Label" text="Spelare 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Label fx:id="player2Label" text="Spelare 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+    <Label fx:id="player1Label" text="Player 1" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <Label fx:id="player2Label" text="Player 2" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
     <ScrollPane  fx:id="scrollPane" id="scrollPane"
                  GridPane.columnIndex="1" GridPane.rowIndex="2" GridPane.columnSpan="3" GridPane.rowSpan="7">
         <HBox >
@@ -88,18 +88,19 @@
 
 
 
-    <Button fx:id="rock" text="Sten" GridPane.columnIndex="0" GridPane.rowIndex="9"
+    <Button fx:id="rock" text="Rock" GridPane.columnIndex="0" GridPane.rowIndex="9"
             onAction="#handleChoiceButtons"/>
 
-    <Button fx:id="scissors" text="Sax" GridPane.columnIndex="2" GridPane.rowIndex="9"
+    <Button fx:id="paper" text="Paper" GridPane.columnIndex="4" GridPane.rowIndex="9"
+            onAction="#handleChoiceButtons"/>
+
+    <Button fx:id="scissors" text="Scissors" GridPane.columnIndex="2" GridPane.rowIndex="9"
              onAction="#handleChoiceButtons"/>
 
-    <Button fx:id="paper" text="P&#229;se" GridPane.columnIndex="4" GridPane.rowIndex="9"
-            onAction="#handleChoiceButtons"/>
 
     <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="10"/>
 
-    <Button fx:id="rules" text="Info" GridPane.columnIndex="4" GridPane.rowIndex="11"
+    <Button fx:id="rules" text="Help" GridPane.columnIndex="4" GridPane.rowIndex="11"
             onAction="#helpButtonClicked"/>
 
 

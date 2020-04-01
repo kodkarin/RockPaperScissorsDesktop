@@ -93,13 +93,13 @@ public class GameWindow extends Window {
                 String text = "";
                 switch (move) {
                     case Game.ROCK:
-                        text = "Sten";
+                        text = "Rock";
                         break;
                     case Game.SCISSORS:
-                        text = "Sax";
+                        text = "Scissors";
                         break;
                     case  Game.PAPER:
-                        text = "P" + (char)229 + "se";
+                        text = "Paper";
                 }
 
                 Label tempLabel = new Label(text);

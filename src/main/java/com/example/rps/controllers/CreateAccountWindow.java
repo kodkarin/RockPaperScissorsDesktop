@@ -92,7 +92,7 @@ public class CreateAccountWindow extends Window {
 
             PreparedStatement checkIfUserExistsStatement = null;
             PreparedStatement createAccountStatement = null;
-            PreparedStatement makefriendsWithCpu = null;
+            PreparedStatement makeFriendsWithCpu = null;
             PreparedStatement cpuMakeFriendsWithYou = null;
             PreparedStatement setToken = null;
             PreparedStatement getUserId = null;
@@ -107,7 +107,7 @@ public class CreateAccountWindow extends Window {
 
 
                 if (results.next()) {
-                    message.setText("Anv" + (char)228 + "ndarnamnet " + (char)228 + "r redan taget");
+                    message.setText("Username is already taken");
                     message.setVisible(true);
                     newUsername.setText("");
                     passwordField.clear();
@@ -160,10 +160,10 @@ public class CreateAccountWindow extends Window {
                     setToken.executeUpdate();
 
                     String makeFriendsSql = "INSERT INTO friends (player1, player2, victories) VALUES (?, ?, 0);";
-                    makefriendsWithCpu = conn.prepareStatement(makeFriendsSql);
-                    makefriendsWithCpu.setInt(1, userId);
-                    makefriendsWithCpu.setInt(2, GameWindow.USER_ID_FOR_CPU_PLAYER);
-                    makefriendsWithCpu.executeUpdate();
+                    makeFriendsWithCpu = conn.prepareStatement(makeFriendsSql);
+                    makeFriendsWithCpu.setInt(1, userId);
+                    makeFriendsWithCpu.setInt(2, GameWindow.USER_ID_FOR_CPU_PLAYER);
+                    makeFriendsWithCpu.executeUpdate();
 
                     cpuMakeFriendsWithYou = conn.prepareStatement(makeFriendsSql);
                     cpuMakeFriendsWithYou.setInt(1, GameWindow.USER_ID_FOR_CPU_PLAYER);
@@ -197,7 +197,7 @@ public class CreateAccountWindow extends Window {
                 }
             }
         } else {
-            message.setText("L" + (char)246 + "senorden " + (char)228 + "r inte identiska");
+            message.setText("Passwords are not identical");
             message.setVisible(true);
             passwordField.clear();
             passwordField2.clear();
@@ -205,6 +205,5 @@ public class CreateAccountWindow extends Window {
         }
 
     }
-
 
 }

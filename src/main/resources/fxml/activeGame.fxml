@@ -27,19 +27,19 @@
     <center>
         <VBox>
             <Label fx:id="makeMoveLabel"
-                   text="Din tur att g&#246;ra ett drag:"/>
+                   text="Your turn to make a move"/>
             <ListView fx:id="makeMoveListView"
                       onMouseClicked="#openGame"/>
             <Label fx:id="opponentsTurnLabel"
-                   text="Motst&#229;ndarens tur"/>
+                   text="Opponent's turn to make a move"/>
             <ListView fx:id="opponentsTurnListView"
                       onMouseClicked="#openGame"/>
             <Label fx:id="finishedGamesLabel"
-                   text="Avslutade matcher"/>
+                   text="Finished games"/>
             <ListView fx:id="finishedGamesListView"
                       onMouseClicked="#openFinishedGame"/>
             <Button fx:id="newFriendRequestButton"
-                    text="Det finns ny v&#228;nf&#246;rfr&#229;gan"
+                    text="You've got a new friend request!"
                     onAction="#showFriendRequests"/>
         </VBox>
 

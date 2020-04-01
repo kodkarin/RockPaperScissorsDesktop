@@ -15,28 +15,28 @@
 
     <padding><Insets top="25" right="25" bottom="10" left="25"/></padding>
 
-    <Label text="Sök (ett eller flera fält):"
+    <Label text="Search (One field or more):"
            GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <Label text="Förnamn:"
+    <Label text="First name:"
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
     <TextField fx:id="firstNameTextField"
                GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
-    <Label text="Efternamn:"
+    <Label text="Last name:"
            GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
     <TextField fx:id="lastNameTextField"
                    GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-    <Label text="Användarnamn:"
+    <Label text="Username:"
            GridPane.columnIndex="0" GridPane.rowIndex="4"/>
 
     <TextField fx:id="usernameTextField"
                GridPane.columnIndex="1" GridPane.rowIndex="4"/>
 
-    <Label text="E-postadress:"
+    <Label text="Email:"
            GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
     <TextField fx:id="emailTextField"

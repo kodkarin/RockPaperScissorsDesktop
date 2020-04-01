@@ -34,9 +34,9 @@
     <VBox GridPane.columnIndex="0" GridPane.rowIndex="4"
         GridPane.columnSpan="2">
         <padding><Insets top="50" right="25" bottom="10" left="25"/></padding>
-        <Button id="loginButton" fx:id="loginButton" text="Logga in" alignment="TOP_CENTER"
+        <Button id="loginButton" fx:id="loginButton" text="Log in" alignment="TOP_CENTER"
             onAction="#handleLoginButton"/>
-        <Button id = "newUser" fx:id="newUser" text="Skapa konto" alignment="BOTTOM_CENTER"
+        <Button id = "newUser" fx:id="newUser" text="Create account" alignment="BOTTOM_CENTER"
             onAction="#handleNewUserButton"/>
     </VBox>
 

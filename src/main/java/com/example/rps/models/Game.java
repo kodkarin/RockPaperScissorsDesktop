@@ -62,10 +62,7 @@ public class Game {
 
     @Override
     public String toString() {
-        String resultat1 = String.valueOf(scorePlayer1);
-        String resultat2 = String.valueOf(scorePlayer2);
-
-        return player1.getUserName() + " - " + player2.getUserName() + " resultat: " + scorePlayer1 + " - " + scorePlayer2;
+        return player1.getUserName() + " - " + player2.getUserName() + "   Result: " + scorePlayer1 + " - " + scorePlayer2;
     }
 
     public void setRoundWinners(int round, int player) {

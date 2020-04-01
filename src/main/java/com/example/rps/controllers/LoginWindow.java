@@ -23,7 +23,6 @@ public class LoginWindow extends Window {
     @FXML
     private PasswordField passwordField;
 
-
     @FXML
     public void initialize() {
 
@@ -54,7 +53,7 @@ public class LoginWindow extends Window {
 
 
             if (!results.next()) {
-                message.setText("Felaktigt anv" + (char)228 + "ndarnamn eller l" + (char)246 + "senord");
+                message.setText("Invalid username or password");
                 message.setTextFill(Color.RED);
                 message.setVisible(true);
                 usernameTextField.setText("");
@@ -76,7 +75,7 @@ public class LoginWindow extends Window {
 
                 setToken.executeUpdate();
 
-                getScreenController().setWindow(ScreenController.NEW_GAME, token);
+                getScreenController().setWindow(ScreenController.ACTIVE_GAMES, token);
             }
 
         } catch (Exception e) {

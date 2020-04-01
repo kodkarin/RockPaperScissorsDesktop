@@ -43,7 +43,7 @@ public class Main extends Application {
             e.printStackTrace();
         }
 
-        myStage.setTitle("Sten Sax P" + (char)229 + "se");
+        myStage.setTitle("Rock Paper Scissors");
 
         ScreenController screenController = new ScreenController(conn, myStage);
         screenController.setWindow(ScreenController.LOGIN, "");
