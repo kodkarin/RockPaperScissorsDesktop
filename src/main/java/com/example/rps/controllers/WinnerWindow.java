@@ -21,6 +21,8 @@ public class WinnerWindow extends Window {
     @FXML
     private Label labelHeaderWinnerWindow;
     @FXML
+    private Label labelHeaderLossesWindow;
+    @FXML
     private ImageView imageView;
 
     private int numberOfWinningsActivePlayer;
@@ -42,6 +44,10 @@ public class WinnerWindow extends Window {
     }
 
     public void setUpWinnerWindow() throws SQLException {
+        this.labelHeaderWinnerWindow.setVisible(false);
+        this.labelHeaderLossesWindow.setVisible(false);
+        this.labelShowTotalNumberOfWinningsForActivePlayer.setVisible(false);
+        this.labelShowTotalNumberOfLossesForActivePlayer.setVisible(false);
         this.userIdPlayer1 = game.getPlayer1().getUserId();
         this.userIdPlayer2 = game.getPlayer2().getUserId();
         this.userIdCpuPlayer = GameWindow.USER_ID_FOR_CPU_PLAYER;
@@ -53,10 +59,8 @@ public class WinnerWindow extends Window {
         this.labelGameResultWinnerWindow.setText(game.getScorePlayer1() + " - " + game.getScorePlayer2());
         this.labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
         this.labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
-        this.labelHeaderWinnerWindow.setText("Congratulations, you won!");
-        this.labelHeaderWinnerWindow.setVisible(false);
-        this.labelShowTotalNumberOfWinningsForActivePlayer.setVisible(false);
-        this.labelShowTotalNumberOfLossesForActivePlayer.setVisible(false);
+        this.labelHeaderWinnerWindow.setText("Grattis, du vann");
+        this.labelHeaderLossesWindow.setText("Tyvärr, du förlorade");
     }
 
     public void playAgainButtonClicked() {
@@ -148,6 +152,8 @@ public class WinnerWindow extends Window {
 
             if (results.next()) {
                 numberOfWinningsActivePlayer = results.getInt(userIdPlayer1);
+                numberOfWinningsString = String.valueOf(numberOfWinningsActivePlayer);
+                labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
                 labelShowTotalNumberOfWinningsForActivePlayer.setVisible(true);
                 labelHeaderWinnerWindow.setVisible(true);
             }
@@ -159,6 +165,8 @@ public class WinnerWindow extends Window {
 
             if (results.next()) {
                 numberOfWinningsActivePlayer = results.getInt(userIdPlayer2);
+                numberOfWinningsString = String.valueOf(numberOfWinningsActivePlayer);
+                labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
                 labelShowTotalNumberOfWinningsForActivePlayer.setVisible(true);
                 labelHeaderWinnerWindow.setVisible(true);
             }
@@ -176,8 +184,11 @@ public class WinnerWindow extends Window {
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfLossesActivePlayer = results.getInt(userIdPlayer1);
+                numberOfLossesActivePlayer = results.getInt(userIdPlayer2);
+                numberOfLossesString = String.valueOf(numberOfLossesActivePlayer);
+                labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
                 labelShowTotalNumberOfLossesForActivePlayer.setVisible(true);
+                labelHeaderLossesWindow.setVisible(true);
             }
         }
 
@@ -189,7 +200,10 @@ public class WinnerWindow extends Window {
 
             if (results.next()) {
                 numberOfLossesActivePlayer = results.getInt(userIdPlayer2);
+                numberOfLossesString = String.valueOf(numberOfLossesActivePlayer);
+                labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
                 labelShowTotalNumberOfLossesForActivePlayer.setVisible(true);
+                labelHeaderLossesWindow.setVisible(true);
             }
         }
 
