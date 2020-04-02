@@ -2,14 +2,17 @@ package com.example.rps.controllers;
 
 import com.example.rps.models.Game;
 import com.example.rps.models.Player;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 
 import java.beans.EventHandler;
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -29,23 +32,42 @@ public class ActiveGameWindow extends Window {
     private ListView<Game> finishedGamesListView;
     @FXML
     private Button newFriendRequestButton;
+    @FXML
+    private Label gameInvitationLabel;
+    @FXML
+    private HBox gameInvitationHBox;
+    @FXML
+    private ListView<Player> gameInvitationListView;
+    @FXML
+    private Button acceptInvitationButton;
+    @FXML
+    private Button rejectInvitationButton;
 
     @Override
     public void setUpWindow() {
 
         makeMoveLabel.setVisible(false);
+        makeMoveListView.getItems().clear();
         makeMoveListView.setVisible(false);
         opponentsTurnLabel.setVisible(false);
         opponentsTurnListView.setVisible(false);
         finishedGamesLabel.setVisible(false);
+        finishedGamesListView.getItems().clear();
         finishedGamesListView.setVisible(false);
         newFriendRequestButton.setVisible(false);
         newFriendRequestButton.setDisable(true);
+        gameInvitationLabel.setVisible(false);
+        gameInvitationHBox.setVisible(false);
+        acceptInvitationButton.setDisable(true);
+        rejectInvitationButton.setDisable(true);
+        gameInvitationListView.getItems().clear();
 
         PreparedStatement getAllGames = null;
         ResultSet allGameResults = null;
         PreparedStatement getFriendRequests = null;
         ResultSet friendRequestsResults = null;
+        PreparedStatement getGameInvitations = null;
+        ResultSet gameInvitationsResults = null;
 
         try {
             getAllGames = getConnection().prepareStatement("SELECT * FROM matches WHERE player1 = ? OR player2 = ?");
@@ -127,6 +149,16 @@ public class ActiveGameWindow extends Window {
                 player1Results.close();
                 player2Results.close();
             }
+
+            getGameInvitations = getConnection().prepareStatement("SELECT * FROM users INNER JOIN invitations " +
+                    "ON users.id = invitations.player1 WHERE invitations.invited_friend = ?;");
+            getGameInvitations.setInt(1, getUserId(getToken()));
+            gameInvitationsResults = getGameInvitations.executeQuery();
+            while(gameInvitationsResults.next()) {
+                Player player = new Player(gameInvitationsResults.getString("username"), gameInvitationsResults.getInt("id"));
+                gameInvitationListView.getItems().add(player);
+            }
+
             if (makeMoveListView.getItems().size() > 0) {
                 makeMoveLabel.setVisible(true);
                 makeMoveListView.setVisible(true);
@@ -138,6 +170,10 @@ public class ActiveGameWindow extends Window {
             if(finishedGamesListView.getItems().size() > 0) {
                 finishedGamesLabel.setVisible(true);
                 finishedGamesListView.setVisible(true);
+            }
+            if(gameInvitationListView.getItems().size() > 0) {
+                gameInvitationLabel.setVisible(true);
+                gameInvitationHBox.setVisible(true);
             }
 
             getFriendRequests = getConnection().prepareStatement("SELECT * FROM friend_requests WHERE requested_friend = ?;");
@@ -166,6 +202,12 @@ public class ActiveGameWindow extends Window {
                 }
                 if (friendRequestsResults != null) {
                     friendRequestsResults.close();
+                }
+                if (getGameInvitations != null) {
+                    getGameInvitations.close();
+                }
+                if (gameInvitationsResults != null) {
+                    gameInvitationsResults.close();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -229,6 +271,60 @@ public class ActiveGameWindow extends Window {
         }
     }
 
+    @FXML
+    private void activateGameInvitationButtons() {
+        acceptInvitationButton.setDisable(false);
+        rejectInvitationButton.setDisable(false);
+    }
+
+    @FXML
+    private void handleGameInvitationButtons(ActionEvent event) {
+
+        Player invitingPlayer = gameInvitationListView.getSelectionModel().getSelectedItem();
+        PreparedStatement acceptGameInvitationStatement = null;
+        PreparedStatement removeGameInvitationStatement = null;
+
+        Button button = (Button) event.getSource();
+        String buttonId = button.getId();
+
+        try {
+            Connection conn = getConnection();
+            conn.setAutoCommit(false);
+
+            if (buttonId.equals("acceptInvitationButton")) {
+
+                acceptGameInvitationStatement = conn.prepareStatement("INSERT INTO matches (player1, player2) " +
+                        "VALUES (?, ?);");
+                acceptGameInvitationStatement.setInt(1, invitingPlayer.getUserId());
+                acceptGameInvitationStatement.setInt(2, getUserId(getToken()));
+                acceptGameInvitationStatement.executeUpdate();
+            }
+
+            removeGameInvitationStatement = conn.prepareStatement("DELETE FROM invitations WHERE player1 = ? AND " +
+                    "invited_friend = ?;");
+            removeGameInvitationStatement.setInt(1, invitingPlayer.getUserId());
+            removeGameInvitationStatement.setInt(2, getUserId(getToken()));
+            removeGameInvitationStatement.executeUpdate();
+
+            conn.commit();
+            conn.setAutoCommit(true);
+
+            setUpWindow();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(acceptGameInvitationStatement != null) {
+                    acceptGameInvitationStatement.close();
+                }
+                if (removeGameInvitationStatement != null) {
+                    removeGameInvitationStatement.close();
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
     public void newGameButtonClicked() {
         getScreenController().setWindow(ScreenController.NEW_GAME, getToken());
     }

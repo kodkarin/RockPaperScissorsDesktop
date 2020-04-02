@@ -41,6 +41,24 @@
             <Button fx:id="newFriendRequestButton"
                     text="You've got a new friend request!"
                     onAction="#showFriendRequests"/>
+            <Label fx:id="gameInvitationLabel"
+                   text="Game invitations"/>
+            <HBox fx:id="gameInvitationHBox" id="gameInvitationHBox">
+                <ListView fx:id="gameInvitationListView"
+                          id="gameInvitationListView"
+                          onMouseClicked="#activateGameInvitationButtons"/>
+                <VBox id="invitationButtonsVBox" spacing="5">
+                    <Button fx:id="acceptInvitationButton"
+                            id="acceptInvitationButton"
+                            text="Accept"
+                            onAction="#handleGameInvitationButtons"/>
+                    <Button fx:id="rejectInvitationButton"
+                            id="rejectInvitationButton"
+                            text="Do not accept"
+                            onAction="#handleGameInvitationButtons"/>
+                </VBox>
+
+            </HBox>
         </VBox>
 
     </center>

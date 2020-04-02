@@ -20,3 +20,29 @@ HBox {
 #header_right {
     -fx-alignment: top-right;
 }
+
+#gameInvitationHBox {
+    -fx-alignment: center-left;
+    -fx-padding: 10 10 10 0;
+}
+
+#invitationButtonsVBox {
+    -fx-alignment: center-left;
+}
+
+#acceptInvitationButton {
+    -fx-border-color: #F09F30;
+    -fx-border-width: 2;
+    -fx-border-radius: 5em;
+}
+
+#rejectInvitationButton {
+    -fx-border-color: #F09F30;
+    -fx-border-width: 2;
+    -fx-border-radius: 5em;
+}
+
+#gameInvitationListView {
+     -fx-border-color: #F09F30;
+     -fx-border-width: 2;
+}
