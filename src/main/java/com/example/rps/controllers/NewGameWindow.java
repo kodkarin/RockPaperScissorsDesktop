@@ -28,6 +28,8 @@ public class NewGameWindow extends Window {
     private Button rejectFriendRequest;
     @FXML
     private Button inviteButton;
+    @FXML
+    private Label inviteLabel;
 
     @Override
     public void setUpWindow() {
@@ -41,6 +43,7 @@ public class NewGameWindow extends Window {
         acceptFriendRequest.setDisable(true);
         rejectFriendRequest.setDisable(true);
         inviteButton.setDisable(true);
+        inviteLabel.setVisible(false);
         requestsListView.setVisible(false);
         requestLabel.setVisible(false);
         acceptFriendRequest.setVisible(false);
@@ -102,6 +105,7 @@ public class NewGameWindow extends Window {
     @FXML
     private void activateInviteFriendButton() {
         inviteButton.setDisable(false);
+        inviteLabel.setVisible(false);
         acceptFriendRequest.setDisable(true);
         rejectFriendRequest.setDisable(true);
     }
@@ -177,19 +181,40 @@ public class NewGameWindow extends Window {
     @FXML
     public void inviteFriendAndStartGame() {
         Player friendToInvite = friendsListView.getSelectionModel().getSelectedItem();
+        PreparedStatement checkIfInvitationExists = null;
+        ResultSet results = null;
         PreparedStatement inviteFriendStatement = null;
 
         try {
-            inviteFriendStatement = getConnection().prepareStatement("INSERT INTO invitations VALUES (?, ?);");
-            inviteFriendStatement.setInt(1,getUserId(getToken()));
-            inviteFriendStatement.setInt(2, friendToInvite.getUserId());
-            inviteFriendStatement.executeUpdate();
+            checkIfInvitationExists = getConnection().prepareStatement("SELECT * FROM invitations WHERE player1 = ? AND " +
+                    "invited_friend = ?;");
+            checkIfInvitationExists.setInt(1, getUserId(getToken()));
+            checkIfInvitationExists.setInt(2, friendToInvite.getUserId());
 
-            getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+            results = checkIfInvitationExists.executeQuery();
+
+            if (results.next()) {
+                inviteLabel.setText("Invitation already sent");
+                inviteLabel.setVisible(true);
+            } else {
+
+                inviteFriendStatement = getConnection().prepareStatement("INSERT INTO invitations VALUES (?, ?);");
+                inviteFriendStatement.setInt(1,getUserId(getToken()));
+                inviteFriendStatement.setInt(2, friendToInvite.getUserId());
+                inviteFriendStatement.executeUpdate();
+                getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
+                if (checkIfInvitationExists != null) {
+                    checkIfInvitationExists.close();
+                }
+                if (results != null) {
+                    results.close();
+                }
                 if(inviteFriendStatement != null) {
                     inviteFriendStatement.close();
                 }

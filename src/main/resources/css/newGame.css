@@ -16,3 +16,7 @@ Button:hover {
 VBox {
     -fx-alignment: bottom-center;
 }
+
+#inviteLabel {
+    -fx-text-fill: #FF0000;
+}

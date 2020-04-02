@@ -71,6 +71,7 @@
                     text="Play with computer"
                     focusTraversable="false"
                     onMouseClicked="#playWithCpuAndStartGame"/>
+            <Label fx:id="inviteLabel" id="inviteLabel"/>
             <Button id="addFriend"
                     text="Add friend"
                     focusTraversable="false"
