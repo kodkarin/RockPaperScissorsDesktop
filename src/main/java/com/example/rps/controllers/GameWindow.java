@@ -134,14 +134,10 @@ public class GameWindow extends Window {
                 int roundWinner = game.compareChoices(movesPlayer1[i], movesPlayer2[i]);
                 if (roundWinner == Game.PLAYER1_WINS) {
                     scorePlayer1++;
-                    player1Vbox.getChildren().get(i-1).setStyle("-fx-border-color: black;");
-                    player1Vbox.getChildren().get(i-1).setStyle("-fx-border-width: 2;");
-                    player1Vbox.getChildren().get(i-1).setStyle("-fx-border-style: solid;");
+                    player1Vbox.getChildren().get(i-1).setStyle("-fx-text-fill: #ED9011;");
                 } else if (roundWinner == Game.PLAYER2_WINS) {
                     scorePlayer2++;
-                    player2Vbox.getChildren().get(i-1).setStyle("-fx-border-color: black;");
-                    player2Vbox.getChildren().get(i-1).setStyle("-fx-border-width: 2;");
-                    player2Vbox.getChildren().get(i-1).setStyle("-fx-border-style: solid;");
+                    player2Vbox.getChildren().get(i-1).setStyle("-fx-text-fill: #ED9011;");
                 }
             }
             if((scorePlayer1 > 4) || (scorePlayer2 > 4)) {
