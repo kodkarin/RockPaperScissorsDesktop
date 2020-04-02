@@ -13,7 +13,11 @@ Button:hover {
     -fx-color: #4879B8;
 }
 
-VBox {
+#listViewVBox {
+    -fx-padding: 10 0 0 0;
+}
+
+#inviteVBox {
     -fx-alignment: bottom-center;
 }
 

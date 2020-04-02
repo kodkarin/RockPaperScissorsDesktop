@@ -37,7 +37,7 @@
     </top>
 
     <left>
-        <VBox spacing="5">
+        <VBox  id="listViewVBox" spacing="5">
             <ListView fx:id="friendsListView"
                       onMouseClicked="#activateInviteFriendButton"/>
             <Label fx:id="requestLabel"
@@ -60,7 +60,7 @@
     </left>
 
     <center>
-        <VBox spacing="5">
+        <VBox id="inviteVBox" spacing="5">
             <Button fx:id="inviteButton"
                     id="inviteButton"
                     text="Invite friend"

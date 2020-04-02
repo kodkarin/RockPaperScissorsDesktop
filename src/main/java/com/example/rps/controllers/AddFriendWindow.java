@@ -321,4 +321,9 @@ public class AddFriendWindow extends Window {
             }
         }
     }
+
+    @FXML
+    private void backButtonClicked() {
+        getScreenController().setWindow(ScreenController.NEW_GAME, getToken());
+    }
 }
