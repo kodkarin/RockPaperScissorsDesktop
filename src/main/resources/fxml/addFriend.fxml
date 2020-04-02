@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
-<GridPane xmlns="http://javafx.com/javafx"
+<GridPane id="addFriend"
+          stylesheets="@/css/addFriend.css"
+          xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.example.rps.controllers.AddFriendWindow"
           fx:id="root"
@@ -22,31 +24,51 @@
            GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
     <TextField fx:id="firstNameTextField"
-               GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+               GridPane.columnIndex="1" GridPane.rowIndex="2"
+               onKeyTyped="#handleKeyTypedFirstNameTextField"/>
 
     <Label text="Last name:"
            GridPane.columnIndex="0" GridPane.rowIndex="3"/>
 
     <TextField fx:id="lastNameTextField"
-                   GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+               GridPane.columnIndex="1" GridPane.rowIndex="3"
+               onKeyTyped="#handleKeyTypedLastNameTextField"/>
 
     <Label text="Username:"
            GridPane.columnIndex="0" GridPane.rowIndex="4"/>
 
     <TextField fx:id="usernameTextField"
-               GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+               GridPane.columnIndex="1" GridPane.rowIndex="4"
+               onKeyTyped="#handleKeyTypedUsernameTextField"/>
 
     <Label text="Email:"
            GridPane.columnIndex="0" GridPane.rowIndex="5"/>
 
     <TextField fx:id="emailTextField"
-               GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+               GridPane.columnIndex="1" GridPane.rowIndex="5"
+               onKeyTyped="#handleKeyTypedEmailTextField"/>
 
-    <VBox GridPane.columnIndex="0" GridPane.rowIndex="6"
-          GridPane.columnSpan="2">
+    <HBox GridPane.columnIndex="0" GridPane.rowIndex="6"
+          GridPane.columnSpan="3" spacing="5">
         <padding><Insets top="50" right="25" bottom="10" left="25"/></padding>
+
         <Button fx:id="searchButton" text="Sök" alignment="BOTTOM_CENTER"
-        onAction="#handleSearchButton"/>
-    </VBox>
+                disable="true"
+                onAction="#handleSearchButton"/>
+        <ListView fx:id="searchResultListView"
+                  visible="false"
+                  onMouseClicked="#enableAddFriendButton"/>
+        <VBox spacing="5">
+            <Button fx:id="addFriendButton"
+                    text="Add friend"
+                    visible="false"
+                    disable="true"
+                    onAction="#handleAddFriendButton"/>
+            <Label fx:id="messageLabel"
+                   id="messageLabel"
+                   visible="false"/>
+        </VBox>
+
+    </HBox>
 
 </GridPane>

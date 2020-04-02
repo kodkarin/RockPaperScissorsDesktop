@@ -1,0 +1,17 @@
+#addFriend {
+	-fx-background-color: #C0D3EB;
+	-fx-padding: 10px;
+}
+
+Button {
+	-fx-background-radius: 5em;
+	-fx-color: #97BDF0;
+}
+
+Button:hover {
+    -fx-color: #4879B8;
+}
+
+#messageLabel {
+    -fx-text-fill: #FF0000;
+}
