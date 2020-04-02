@@ -30,17 +30,12 @@ HBox {
     -fx-alignment: center-left;
 }
 
-#acceptInvitationButton {
-    -fx-border-color: #F09F30;
-    -fx-border-width: 2;
-    -fx-border-radius: 5em;
+.specialButton {
+     -fx-border-color: #F09F30;
+     -fx-border-width: 2;
+     -fx-border-radius: 5em;
 }
 
-#rejectInvitationButton {
-    -fx-border-color: #F09F30;
-    -fx-border-width: 2;
-    -fx-border-radius: 5em;
-}
 
 #gameInvitationListView {
      -fx-border-color: #F09F30;
