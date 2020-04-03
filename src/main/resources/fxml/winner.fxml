@@ -36,7 +36,7 @@
 
             <padding><Insets right="225" left="225"/></padding>
             <Label fx:id="labelGameResultWinnerWindow" />
-            <Label id="statisticsCurrentGame" text="Statistik"/>
+            <Label id="statisticsCurrentGame" text="Statistics"/>
             <Label id="labelNumberOfWins" text="Number of wins:" />
             <Label fx:id="labelShowTotalNumberOfWinningsForActivePlayer" />
             <Label id="labelNumberOfLosses" text="Number of losses:" />
