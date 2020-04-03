@@ -58,7 +58,7 @@ public class WinnerWindow extends Window {
         this.showResultFromPreviousGame();
         this.showTotalNumberOfWinningsForActivePlayer();
         this.showTotalNumberOfLossesForActivePlayer();
-        this.labelGameResultWinnerWindow.setText(game.getScorePlayer1() + " - " + game.getScorePlayer2());
+        this.labelGameResultWinnerWindow.setText("Game results: " + game.getScorePlayer1() + " - " + game.getScorePlayer2());
         this.labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
         this.labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
 
@@ -152,15 +152,15 @@ public class WinnerWindow extends Window {
     }
 
     public void showResultFromPreviousGame() {
-        labelGameResultWinnerWindow.setText(game.getScorePlayer1() + " - " + game.getScorePlayer2());
+        labelGameResultWinnerWindow.setText("Game results: " + game.getScorePlayer1() + " - " + game.getScorePlayer2());
     }
 
     private int showTotalNumberOfWinningsForActivePlayer() throws SQLException {
 
         if (userIdPlayer1 == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,1);
-            getVictories.setInt(2, 2);
+            getVictories.setInt(1,userIdPlayer1);
+            getVictories.setInt(2, userIdPlayer2);
             results = getVictories.executeQuery();
 
             if (results.next()) {
@@ -171,12 +171,12 @@ public class WinnerWindow extends Window {
             }
         } else if (userIdPlayer2 == game.getPlayer2().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,1);
-            getVictories.setInt(2,2);
+            getVictories.setInt(1,userIdPlayer1);
+            getVictories.setInt(2,userIdPlayer2);
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfWinningsActivePlayer = results.getInt(2);
+                numberOfWinningsActivePlayer = results.getInt(1);
                 numberOfWinningsString = String.valueOf(numberOfWinningsActivePlayer);
                 labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
                 labelShowTotalNumberOfWinningsForActivePlayer.setVisible(true);
@@ -190,12 +190,12 @@ public class WinnerWindow extends Window {
 
         if (userIdPlayer1 == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,2);
-            getVictories.setInt(2,1);
+            getVictories.setInt(1,userIdPlayer2);
+            getVictories.setInt(2,userIdPlayer1);
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfLossesActivePlayer = results.getInt(2);
+                numberOfLossesActivePlayer = results.getInt(1);
                 numberOfLossesString = String.valueOf(numberOfLossesActivePlayer);
                 labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
                 labelShowTotalNumberOfLossesForActivePlayer.setVisible(true);
@@ -204,8 +204,8 @@ public class WinnerWindow extends Window {
 
         if (userIdPlayer2 == game.getPlayer2().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,2);
-            getVictories.setInt(2,1);
+            getVictories.setInt(1,userIdPlayer2);
+            getVictories.setInt(2,userIdPlayer1);
             results = getVictories.executeQuery();
 
             if (results.next()) {
