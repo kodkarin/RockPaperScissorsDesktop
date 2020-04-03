@@ -3,6 +3,7 @@ package com.example.rps.controllers;
 import com.example.rps.models.Game;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.sql.PreparedStatement;
@@ -44,6 +45,7 @@ public class WinnerWindow extends Window {
     }
 
     public void setUpWinnerWindow() throws SQLException {
+        Image loserImage = new Image("http://bestanimations.com/Signs&Shapes/Hearts/brokenhearts/broken-heart-red-skull-animated-gif.gif#.XoXzLilMr3Q.link");
         this.labelHeaderWinnerWindow.setVisible(false);
         this.labelHeaderLossesWindow.setVisible(false);
         this.labelShowTotalNumberOfWinningsForActivePlayer.setVisible(false);
@@ -59,8 +61,19 @@ public class WinnerWindow extends Window {
         this.labelGameResultWinnerWindow.setText(game.getScorePlayer1() + " - " + game.getScorePlayer2());
         this.labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
         this.labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
-        this.labelHeaderWinnerWindow.setText("Grattis, du vann");
-        this.labelHeaderLossesWindow.setText("Tyvärr, du förlorade");
+
+        labelHeaderWinnerWindow.setText("Congratulations, you won!");
+        if(getUserId(getToken()) == userIdPlayer1) {
+            if (game.getScorePlayer2() > game.getScorePlayer1()) {
+                this.labelHeaderWinnerWindow.setText("Sorry, you lost");
+                imageView.setImage(loserImage);
+            }
+        } else if (game.getScorePlayer1() > game.getScorePlayer2()) {
+            this.labelHeaderWinnerWindow.setText("Sorry, you lost");
+            imageView.setImage(loserImage);
+        }
+        labelHeaderWinnerWindow.setVisible(true);
+
     }
 
     public void playAgainButtonClicked() {
@@ -146,29 +159,27 @@ public class WinnerWindow extends Window {
 
         if (userIdPlayer1 == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer1);
-            getVictories.setInt(2,userIdPlayer2);
+            getVictories.setInt(1,1);
+            getVictories.setInt(2, 2);
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfWinningsActivePlayer = results.getInt(userIdPlayer1);
+                numberOfWinningsActivePlayer = results.getInt(1);
                 numberOfWinningsString = String.valueOf(numberOfWinningsActivePlayer);
                 labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
                 labelShowTotalNumberOfWinningsForActivePlayer.setVisible(true);
-                labelHeaderWinnerWindow.setVisible(true);
             }
         } else if (userIdPlayer2 == game.getPlayer2().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer1);
-            getVictories.setInt(2,userIdPlayer2);
+            getVictories.setInt(1,1);
+            getVictories.setInt(2,2);
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfWinningsActivePlayer = results.getInt(userIdPlayer2);
+                numberOfWinningsActivePlayer = results.getInt(2);
                 numberOfWinningsString = String.valueOf(numberOfWinningsActivePlayer);
                 labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
                 labelShowTotalNumberOfWinningsForActivePlayer.setVisible(true);
-                labelHeaderWinnerWindow.setVisible(true);
             }
         }
 
@@ -179,31 +190,29 @@ public class WinnerWindow extends Window {
 
         if (userIdPlayer1 == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer2);
-            getVictories.setInt(2,userIdPlayer1);
+            getVictories.setInt(1,2);
+            getVictories.setInt(2,1);
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfLossesActivePlayer = results.getInt(userIdPlayer2);
+                numberOfLossesActivePlayer = results.getInt(2);
                 numberOfLossesString = String.valueOf(numberOfLossesActivePlayer);
                 labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
                 labelShowTotalNumberOfLossesForActivePlayer.setVisible(true);
-                labelHeaderLossesWindow.setVisible(true);
             }
         }
 
         if (userIdPlayer2 == game.getPlayer2().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer2);
-            getVictories.setInt(2,userIdPlayer1);
+            getVictories.setInt(1,2);
+            getVictories.setInt(2,1);
             results = getVictories.executeQuery();
 
             if (results.next()) {
-                numberOfLossesActivePlayer = results.getInt(userIdPlayer2);
+                numberOfLossesActivePlayer = results.getInt(1);
                 numberOfLossesString = String.valueOf(numberOfLossesActivePlayer);
                 labelShowTotalNumberOfLossesForActivePlayer.setText(numberOfLossesString);
                 labelShowTotalNumberOfLossesForActivePlayer.setVisible(true);
-                labelHeaderLossesWindow.setVisible(true);
             }
         }
 
