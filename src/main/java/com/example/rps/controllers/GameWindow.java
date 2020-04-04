@@ -132,6 +132,9 @@ public class GameWindow extends Window {
                     player2Vbox.getChildren().get(i-1).setStyle("-fx-text-fill: #ED9011;");
                 }
             }
+            game.setScorePlayer1(scorePlayer1);
+            game.setScorePlayer2(scorePlayer2);
+
             if((scorePlayer1 > 4) || (scorePlayer2 > 4)) {
                 int winner = scorePlayer1 > scorePlayer2 ? game.getPlayer1().getUserId() : game.getPlayer2().getUserId();
                 int loser = winner == game.getPlayer1().getUserId() ? game.getPlayer2().getUserId() : game.getPlayer1().getUserId();

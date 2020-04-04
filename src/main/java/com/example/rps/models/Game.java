@@ -40,8 +40,16 @@ public class Game {
         return scorePlayer1;
     }
 
+    public void setScorePlayer1(int score) {
+        scorePlayer1 = score;
+    }
+
     public int getScorePlayer2() {
         return scorePlayer2;
+    }
+
+    public void setScorePlayer2(int score) {
+        scorePlayer2 = score;
     }
 
     public void increaseScorePlayer1() {
