@@ -2,14 +2,10 @@ package com.example.rps;
 
 import com.example.rps.controllers.ScreenController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Scanner;
@@ -19,8 +15,8 @@ public class Main extends Application {
         launch(args);
     }
 
-    public void start(Stage myStage) throws Exception {
-
+    //Karin har skrivit den här metoden
+    public void start(Stage myStage) {
 
         String user = "";
         String login = "";
@@ -47,9 +43,5 @@ public class Main extends Application {
 
         ScreenController screenController = new ScreenController(conn, myStage);
         screenController.setWindow(ScreenController.LOGIN, "");
-
-
     }
-
-
 }

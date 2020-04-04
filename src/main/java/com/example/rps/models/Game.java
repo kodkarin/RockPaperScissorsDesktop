@@ -1,7 +1,6 @@
 package com.example.rps.models;
 
-import java.sql.Connection;
-
+//Karin har skrivit den här klassen
 public class Game {
 
     private int gameID;
@@ -9,9 +8,6 @@ public class Game {
     private Player player2;
     private int scorePlayer1;
     private int scorePlayer2;
-    private int currentChoicePlayer1;
-    private int currentChoicePlayer2;
-    private int[] roundWinners;
     public static final int ROCK = 1;
     public static final int SCISSORS = 2;
     public static final int PAPER = 3;
@@ -26,11 +22,7 @@ public class Game {
         this.player2 = player2;
         scorePlayer1 = 0;
         scorePlayer2 = 0;
-        currentChoicePlayer1 = 0;
-        currentChoicePlayer2 = 0;
-        int[] roundWinners = new int[15];
     }
-
 
     public int getGameID() {
         return gameID;
@@ -65,69 +57,13 @@ public class Game {
         return player1.getUserName() + " - " + player2.getUserName() + "   Result: " + scorePlayer1 + " - " + scorePlayer2;
     }
 
-    public void setRoundWinners(int round, int player) {
-        if(round > roundWinners.length) {
-            int[] temp = new int[roundWinners.length * 2];
-            for(int i = 0; i < roundWinners.length; i++) {
-                temp[i] = roundWinners[i];
-            }
-            roundWinners = temp;
-        }
-        roundWinners[round-1] = player;
-    }
-
-    public int getRoundWinner(int round){
-        if((round >0) && (round<= roundWinners.length)) {
-            return roundWinners[round-1];
-        } else {
-            return 0;
-        }
-    }
-
-    public void refreshScore(Connection conn) {
-
-    }
-
-
-    public String makeChoice(Player player, int choice) {
-
-        String message = "OK";
-        if (player == player1) {
-            if (currentChoicePlayer1 == 0) {
-                currentChoicePlayer1 = choice;
-                // skriv in i databasen
-            } else {
-                message = "Kan inte göra ett drag. Väntar på motståndaren.";
-            }
-        } else if (player == player2) {
-            if (currentChoicePlayer2 == 0) {
-                currentChoicePlayer2 = choice;
-                // skriv in i databasen
-            } else {
-                message = "Kan inte göra ett drag. Väntar på motståndaren.";
-            }
-        } else {
-            return "Spelaren deltar ej i den här spelomgången";
-        }
-
-        if (currentChoicePlayer1 != 0 && currentChoicePlayer2 != 0) {
-            int winner = compareChoices(currentChoicePlayer1, currentChoicePlayer2);
-            currentChoicePlayer1 = 0;
-            currentChoicePlayer2 = 0;
-            if (winner == PLAYER1_WINS) {
-                scorePlayer1++;
-            } else if (winner == PLAYER2_WINS) {
-                scorePlayer2++;
-            }
-        }
-        return message;
-    }
-
     public int compareChoices(int choice1, int choice2) {
 
         int result;
 
-        if (choice1 == choice2) {
+        if ((choice2 != ROCK) && (choice2 != PAPER) && (choice2 !=SCISSORS)) {
+            result = INVALID_INPUT;
+        } else if (choice1 == choice2) {
             result = DRAW;
         } else  switch(choice1) {
             case ROCK:

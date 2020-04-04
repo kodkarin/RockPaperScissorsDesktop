@@ -10,9 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+//Karin har skrivit den här klassen
 public class LoginWindow extends Window {
-
-
 
     @FXML
     private Label message;
@@ -24,17 +23,7 @@ public class LoginWindow extends Window {
     private PasswordField passwordField;
 
     @FXML
-    public void initialize() {
-
-    }
-
-
-
-
-
-    @FXML
     public void handleLoginButton() {
-
 
         String username = usernameTextField.getText();
         String password = passwordField.getText();
@@ -42,6 +31,8 @@ public class LoginWindow extends Window {
         PreparedStatement loginStatement= null;
         PreparedStatement getUserId = null;
         PreparedStatement setToken = null;
+        ResultSet results = null;
+        ResultSet userIdResults = null;
 
         try {
             Connection conn = getConnection();
@@ -49,8 +40,7 @@ public class LoginWindow extends Window {
             loginStatement.setString(1, username);
             loginStatement.setString(2, password);
 
-            ResultSet results = loginStatement.executeQuery();
-
+            results = loginStatement.executeQuery();
 
             if (!results.next()) {
                 message.setText("Invalid username or password");
@@ -65,7 +55,7 @@ public class LoginWindow extends Window {
                 getUserId = conn.prepareStatement("SELECT id FROM users WHERE username = ? AND password = ?");
                 getUserId.setString(1, username);
                 getUserId.setString(2, password);
-                ResultSet userIdResults = getUserId.executeQuery();
+                userIdResults = getUserId.executeQuery();
                 userIdResults.next();
                 int userId = userIdResults.getInt(1);
 
@@ -77,7 +67,6 @@ public class LoginWindow extends Window {
 
                 getScreenController().setWindow(ScreenController.ACTIVE_GAMES, token);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -90,6 +79,12 @@ public class LoginWindow extends Window {
                 }
                 if(getUserId != null) {
                     getUserId.close();
+                }
+                if (results != null) {
+                    results.close();
+                }
+                if (userIdResults != null) {
+                    userIdResults.close();
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();

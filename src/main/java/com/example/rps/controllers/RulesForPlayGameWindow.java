@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
+//Christian har skrivit den här klassen
 public class RulesForPlayGameWindow extends Window {
 
     private Game gameFromPreviousWindow = null;

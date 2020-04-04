@@ -1,19 +1,18 @@
 package com.example.rps.controllers;
+
 import com.example.rps.models.Player;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
-
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+//Christian har gjort det mesta av layouten för den här klassen
 public class NewGameWindow extends Window {
 
     @FXML
@@ -31,6 +30,7 @@ public class NewGameWindow extends Window {
     @FXML
     private Label inviteLabel;
 
+    //Karin har skrivit den här metoden
     @Override
     public void setUpWindow() {
 
@@ -38,6 +38,7 @@ public class NewGameWindow extends Window {
         PreparedStatement getFriendRequests = null;
         ResultSet friendsResults = null;
         ResultSet requestsResults = null;
+
         friendsListView.getItems().clear();
         requestsListView.getItems().clear();
         acceptFriendRequest.setDisable(true);
@@ -94,14 +95,13 @@ public class NewGameWindow extends Window {
                 if (requestsResults != null) {
                     requestsResults.close();
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     private void activateInviteFriendButton() {
         inviteButton.setDisable(false);
@@ -110,6 +110,7 @@ public class NewGameWindow extends Window {
         rejectFriendRequest.setDisable(true);
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     private void activateRequestButtons() {
         acceptFriendRequest.setDisable(false);
@@ -117,6 +118,7 @@ public class NewGameWindow extends Window {
         inviteButton.setDisable(true);
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     private void handleFriendRequestButtons(ActionEvent event) {
         Player friendRequest = requestsListView.getSelectionModel().getSelectedItem();
@@ -129,7 +131,6 @@ public class NewGameWindow extends Window {
         String buttonId = button.getId();
 
         try {
-
             Connection conn = getConnection();
             conn.setAutoCommit(false);
 
@@ -173,11 +174,9 @@ public class NewGameWindow extends Window {
                 ex.printStackTrace();
             }
         }
-
-
     }
 
-
+    //Karin har skrivit den här metoden
     @FXML
     public void inviteFriendAndStartGame() {
         Player friendToInvite = friendsListView.getSelectionModel().getSelectedItem();
@@ -250,10 +249,12 @@ public class NewGameWindow extends Window {
         }
     }
 
+    //Christian har skrivit den här metoden
     public void addFriendButtonClicked() {
         getScreenController().setWindow(ScreenController.ADD_FRIEND, getToken());
     }
 
+    //Christian har skrivit den här metoden
     public void backButtonClicked() {
         getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
     }

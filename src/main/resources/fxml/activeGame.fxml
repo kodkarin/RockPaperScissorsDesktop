@@ -68,6 +68,9 @@
     </center>
     <bottom>
             <HBox>
+                <Button text="Refresh window"
+                        focusTraversable="false"
+                        onAction="#refreshActiveGameWindow"/>
                 <Button id="newGameButton"
                         text="New game"
                         focusTraversable="false"

@@ -2,6 +2,7 @@ package com.example.rps.controllers;
 
 
 import com.example.rps.models.Game;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,7 +12,7 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 
-
+//Karin har skrivit den här klassen
 public class ScreenController {
 
     private Connection conn;
@@ -35,10 +36,7 @@ public class ScreenController {
         this.conn = conn;
     }
 
-
-
     public void setWindow (String selectedWindow, String token) {
-
 
         try {
             URL url = new File(selectedWindow).toURI().toURL();
@@ -68,13 +66,9 @@ public class ScreenController {
                 stage.setScene(scene);
                 stage.show();
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public void setWindow(String selectedWindow, String token, Game game) {
@@ -105,20 +99,17 @@ public class ScreenController {
                 stage.setScene(scene);
                 stage.show();
             }
-
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    //Christian har skrivit den här metoden
     public String getPreviousPage() {
         return previousPage;
     }
 
+    //Christian har skrivit den här metoden
     public void setPreviousPage(String previousPage) {
         this.previousPage = previousPage;
     }

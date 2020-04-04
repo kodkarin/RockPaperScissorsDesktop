@@ -10,8 +10,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-import java.beans.EventHandler;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,13 +41,14 @@ public class ActiveGameWindow extends Window {
     @FXML
     private Button rejectInvitationButton;
 
+    //Karin har skrivit den här metoden
     @Override
     public void setUpWindow() {
 
-        makeMoveLabel.setVisible(false);
+        makeMoveLabel.setText("You can't make any moves right now");
         makeMoveListView.getItems().clear();
         makeMoveListView.setVisible(false);
-        opponentsTurnLabel.setVisible(false);
+        opponentsTurnLabel.setText("No opponent to wait for to make a move");
         opponentsTurnListView.setVisible(false);
         finishedGamesLabel.setVisible(false);
         finishedGamesListView.getItems().clear();
@@ -111,27 +110,26 @@ public class ActiveGameWindow extends Window {
 
                         if(maxRoundNumberResults.next()) {
                             int userId1 = maxRoundNumberResults.getInt("user_id");
+                            boolean hasUserId1 = getUserId(getToken()) == userId1;
                             int maxRound1 = maxRoundNumberResults.getInt(2);
                             if (maxRoundNumberResults.next()) {
-                                int userId2 = maxRoundNumberResults.getInt("user_id");
                                 int maxRound2 = maxRoundNumberResults.getInt(2);
-                                if (maxRound2 > maxRound1) {
-                                    if (userId2 == getUserId(getToken())) {
-                                        opponentsTurnListView.getItems().add(game);
-                                    } else {
-                                        makeMoveListView.getItems().add(game);
-                                    }
-                                } else if (maxRound1 > maxRound2){
-                                    if (userId1 == getUserId(getToken())) {
+
+                                if(hasUserId1) {
+                                    if (maxRound1 > maxRound2) {
                                         opponentsTurnListView.getItems().add(game);
                                     } else {
                                         makeMoveListView.getItems().add(game);
                                     }
                                 } else {
-                                    makeMoveListView.getItems().add(game);
+                                    if (maxRound2 > maxRound1) {
+                                        opponentsTurnListView.getItems().add(game);
+                                    } else {
+                                        makeMoveListView.getItems().add(game);
+                                    }
                                 }
-                            } else if (userId1 == getUserId(getToken())) {
-                                // Bara en spelare har gjort drag hittills i matchen. Måste kolla om det är den inloggade spelaren eller motståndaren
+                            } else if (hasUserId1) {
+                                // Bara den spelare som har userId1 har gjort drag hittills i matchen.
                                 opponentsTurnListView.getItems().add(game);
                             } else {
                                 makeMoveListView.getItems().add(game);
@@ -160,11 +158,11 @@ public class ActiveGameWindow extends Window {
             }
 
             if (makeMoveListView.getItems().size() > 0) {
-                makeMoveLabel.setVisible(true);
+                makeMoveLabel.setText("Your turn to make a move");
                 makeMoveListView.setVisible(true);
             }
             if(opponentsTurnListView.getItems().size() > 0) {
-                opponentsTurnLabel.setVisible(true);
+                opponentsTurnLabel.setText("Opponent's turn to make a move");
                 opponentsTurnListView.setVisible(true);
             }
             if(finishedGamesListView.getItems().size() > 0) {
@@ -217,6 +215,7 @@ public class ActiveGameWindow extends Window {
 
     }
 
+    //Karin har skrivit den här metoden
     private void setGameScore(Game game) {
         PreparedStatement getAllRounds = null;
         ResultSet results = null;
@@ -253,6 +252,7 @@ public class ActiveGameWindow extends Window {
         }
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     public void openGame(MouseEvent event) {
 
@@ -263,6 +263,7 @@ public class ActiveGameWindow extends Window {
         }
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     public void openFinishedGame() {
         if (finishedGamesListView.getSelectionModel().getSelectedItem() != null) {
@@ -271,12 +272,14 @@ public class ActiveGameWindow extends Window {
         }
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     private void activateGameInvitationButtons() {
         acceptInvitationButton.setDisable(false);
         rejectInvitationButton.setDisable(false);
     }
 
+    //Karin har skrivit den här metoden
     @FXML
     private void handleGameInvitationButtons(ActionEvent event) {
 
@@ -325,21 +328,31 @@ public class ActiveGameWindow extends Window {
             }
         }
     }
+
+    //Christian har skrivit den här metoden
     public void newGameButtonClicked() {
         getScreenController().setWindow(ScreenController.NEW_GAME, getToken());
     }
 
+    //Christian har skrivit den här metoden
     public void helpButtonClicked() {
         getScreenController().setPreviousPage(ScreenController.ACTIVE_GAMES);
         getScreenController().setWindow(ScreenController.RULES, getToken());
     }
 
+    //Christian har skrivit den här metoden
     public void logOutButtonClicked() {
         getScreenController().setWindow(ScreenController.LOGIN, getToken());
     }
 
+    //Karin har skrivit den här metoden
     @FXML
-    public void showFriendRequests() {
+    private void showFriendRequests() {
         getScreenController().setWindow(ScreenController.NEW_GAME, getToken());
+    }
+
+    @FXML
+    private void refreshActiveGameWindow() {
+        setUpWindow();
     }
 }

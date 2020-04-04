@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+//Christian har skrivit den här klassen
 public class WinnerWindow extends Window {
 
     @FXML

@@ -5,13 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 
-import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+//Karin har skrivit den här klassen
 public class CreateAccountWindow extends Window {
 
     @FXML
@@ -97,13 +96,16 @@ public class CreateAccountWindow extends Window {
             PreparedStatement setToken = null;
             PreparedStatement getUserId = null;
 
+            ResultSet results = null;
+            ResultSet userIdResults = null;
+
             try {
                 Connection conn = getConnection();
-                conn.setAutoCommit(false);
+
                 checkIfUserExistsStatement = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
                 checkIfUserExistsStatement.setString(1, username);
 
-                ResultSet results = checkIfUserExistsStatement.executeQuery();
+                results = checkIfUserExistsStatement.executeQuery();
 
 
                 if (results.next()) {
@@ -113,6 +115,8 @@ public class CreateAccountWindow extends Window {
                     passwordField.clear();
                     passwordField2.clear();
                 } else {
+
+                    conn.setAutoCommit(false);
 
                     if(firstName.equals("")) {
                         if(lastName.equals("")) {
@@ -149,7 +153,7 @@ public class CreateAccountWindow extends Window {
                     getUserId = conn.prepareStatement("SELECT id FROM users WHERE username = ? AND password = ?");
                     getUserId.setString(1, username);
                     getUserId.setString(2, password);
-                    ResultSet userIdResults = getUserId.executeQuery();
+                    userIdResults = getUserId.executeQuery();
                     userIdResults.next();
                     int userId = userIdResults.getInt(1);
 
@@ -192,6 +196,18 @@ public class CreateAccountWindow extends Window {
                     if(getUserId != null) {
                         getUserId.close();
                     }
+                    if (makeFriendsWithCpu != null) {
+                        makeFriendsWithCpu.close();
+                    }
+                    if (cpuMakeFriendsWithYou != null) {
+                        cpuMakeFriendsWithYou.close();
+                    }
+                    if (results != null) {
+                        results.close();
+                    }
+                    if (userIdResults != null) {
+                        userIdResults.close();
+                    }
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -203,7 +219,5 @@ public class CreateAccountWindow extends Window {
             passwordField2.clear();
             newUserButton.setDisable(true);
         }
-
     }
-
 }

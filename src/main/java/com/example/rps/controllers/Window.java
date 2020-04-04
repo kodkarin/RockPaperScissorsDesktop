@@ -1,12 +1,12 @@
 package com.example.rps.controllers;
 
-import com.example.rps.models.Game;
-
 import java.security.SecureRandom;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+//Karin har skrivit den här klassen
 public class Window {
 
     private Connection conn;
@@ -24,7 +24,7 @@ public class Window {
     }
 
     public void setUpWindow() {
-
+        //Används av vissa av subklasserna för att lägga in data som ska visas när fönstret öppnas. Anropas för alla fönster när de öppnas men alla använder den inte
     }
 
     public Connection getConnection() {
@@ -63,10 +63,8 @@ public class Window {
             if(results.next()) {
                 validToken = true;
             }
-
         } catch (Exception e) {
             e.printStackTrace();
-
         } finally {
             try {
                 if (getTimestampIssued != null) {
@@ -90,7 +88,6 @@ public class Window {
             if (results.next()) {
                 userId = results.getInt(1);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

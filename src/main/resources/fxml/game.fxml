@@ -82,10 +82,6 @@
         </HBox>
     </ScrollPane>
 
-
-
-
-
     <Button fx:id="rock" GridPane.columnIndex="0" GridPane.rowIndex="7"
             onAction="#handleChoiceButtons">
         <graphic>
@@ -113,10 +109,14 @@
         </graphic>
     </Button>
 
+    <Button text="Refresh window"
+            GridPane.columnIndex="0" GridPane.rowIndex="9"
+            GridPane.columnSpan="2"
+            onAction="#setUpGameWindow"/>
 
     <Label fx:id="resultLabel" text="X - X" GridPane.columnIndex="2" GridPane.rowIndex="8"/>
 
-    <Button fx:id="rules" text="Help" GridPane.columnIndex="4" GridPane.rowIndex="9"
+    <Button text="Help" GridPane.columnIndex="4" GridPane.rowIndex="9"
             onAction="#helpButtonClicked"/>
 
 

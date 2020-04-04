@@ -2,24 +2,18 @@ package com.example.rps.controllers;
 
 
 import com.example.rps.models.Player;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+//Karin har skrivit den här klassen
 public class AddFriendWindow extends Window {
-
-    @FXML
-    private GridPane root;
 
     @FXML
     private TextField firstNameTextField;
@@ -95,7 +89,6 @@ public class AddFriendWindow extends Window {
         addFriendButton.setVisible(false);
         messageLabel.setVisible(false);
 
-        System.out.println("Before searchForFriends");
         searchForFriends();
 
         if (searchResultListView.getItems().size() > 0 ) {
@@ -106,8 +99,6 @@ public class AddFriendWindow extends Window {
             messageLabel.setText("No matches found");
             messageLabel.setVisible(true);
         }
-
-
     }
 
     @FXML
@@ -125,7 +116,6 @@ public class AddFriendWindow extends Window {
         PreparedStatement addFriendStatement = null;
 
         try {
-
             checkIfFriendExistsStatement = getConnection().prepareStatement("SELECT * FROM friends WHERE player1 = ? AND player2 = ?");
             checkIfFriendExistsStatement.setInt(1, getUserId(getToken()));
             checkIfFriendExistsStatement.setInt(2, friendToAdd.getUserId());
@@ -160,34 +150,25 @@ public class AddFriendWindow extends Window {
                 ex.printStackTrace();
             }
         }
-
     }
 
     private void searchForFriends() {
 
         PreparedStatement searchStatement = null;
-
         ResultSet searchResults = null;
 
-        System.out.println("In searchForFriends()");
         String firstName = firstNameTextField.getText();
-        System.out.println("Förnamn = " + firstName);
         String lastName = lastNameTextField.getText();
         String username = usernameTextField.getText();
         String email = emailTextField.getText();
 
         try {
-
             Connection conn = getConnection();
 
             if(firstNameEntered) {
-                System.out.println("Förnamn finns");
                 if (lastNameEntered) {
-                    System.out.println("Efternamn finns");
                     if(usernameEntered){
-                        System.out.println("Användarnamn finns");
                         if(emailEntered){
-                            System.out.println("Email finns");
                             searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                                     "last_name = ? AND username = ? AND email = ?");
                             searchStatement.setString(1, firstName);
@@ -195,7 +176,6 @@ public class AddFriendWindow extends Window {
                             searchStatement.setString(3, username);
                             searchStatement.setString(4, email);
                         } else {
-                            System.out.println("Email finns inte");
                             searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                                     "last_name = ? AND username = ?");
                             searchStatement.setString(1, firstName);
@@ -203,108 +183,89 @@ public class AddFriendWindow extends Window {
                             searchStatement.setString(3, username);
                         }
                     } else if (emailEntered) {
-                        System.out.println("Användarnamn finns inte men email finns");
                         searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                                 "last_name = ? AND email = ?");
                         searchStatement.setString(1, firstName);
                         searchStatement.setString(2, lastName);
                         searchStatement.setString(3, email);
                     } else {
-                        System.out.println("Användarnamn eller email finns inte");
                         searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                                 "last_name = ?");
                         searchStatement.setString(1, firstName);
                         searchStatement.setString(2, lastName);
                     }
                 } else if (usernameEntered) {
-                    System.out.println("Efternamn finns inte men användarnamn finns");
                     if(emailEntered) {
-                        System.out.println("Email finns");
                         searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                                 "username = ? AND email = ?");
                         searchStatement.setString(1, firstName);
                         searchStatement.setString(2, username);
                         searchStatement.setString(3, email);
                     } else {
-                        System.out.println("Email finns inte");
                         searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                                 "username = ?");
                         searchStatement.setString(1, firstName);
                         searchStatement.setString(2, username);
                     }
                 } else if (emailEntered) {
-                    System.out.println("Efternamn eller användarnamn finns inte men email finns");
                     searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ? AND " +
                             "email = ?");
                     searchStatement.setString(1, firstName);
                     searchStatement.setString(2, email);
                 } else {
-                    System.out.println("Efternamn , användarnamn eller email finns inte");
                     searchStatement = conn.prepareStatement("SELECT * FROM users WHERE first_name = ?");
                     searchStatement.setString(1, firstName);
                 }
             } else if (lastNameEntered) {
-                System.out.println("Förnamn finns inte men efternamn finns");
                 if (usernameEntered) {
-                    System.out.println("Användarnamn finns");
                     if (emailEntered) {
-                        System.out.println("Email finns");
                         searchStatement = conn.prepareStatement("SELECT * FROM users WHERE last_name = ? AND " +
                                 "username = ? AND email = ?");
                         searchStatement.setString(1, lastName);
                         searchStatement.setString(2, username);
                         searchStatement.setString(3, email);
                     } else {
-                        System.out.println("Email finns inte");
                         searchStatement = conn.prepareStatement("SELECT * FROM users WHERE last_name = ? AND " +
                                 "username = ?");
                         searchStatement.setString(1, lastName);
                         searchStatement.setString(2, username);
                     }
                 } else if (emailEntered) {
-                    System.out.println("Användarnamn finns inte men email finns");
                     searchStatement = conn.prepareStatement("SELECT * FROM users WHERE last_name = ? AND " +
                             "email = ?");
                     searchStatement.setString(1, lastName);
                     searchStatement.setString(2, email);
                 } else {
-                    System.out.println("Användarnamn eller email finns inte");
                     searchStatement = conn.prepareStatement("SELECT * FROM users WHERE last_name = ?");
                     searchStatement.setString(1, lastName);
                 }
             } else if (usernameEntered) {
-                System.out.println("Förnamn eller efternamn finns inte men användarnamn finns");
                 if (emailEntered) {
-                    System.out.println("Email finns");
                     searchStatement = conn.prepareStatement("SELECT * FROM users WHERE username = ? AND " +
                             "email = ?");
                     searchStatement.setString(1, username);
                     searchStatement.setString(2, email);
                 } else {
-                    System.out.println("Email finns inte");
                     searchStatement = conn.prepareStatement("SELECT * FROM users WHERE username = ?");
                     searchStatement.setString(1, username);
                 }
             } else if (emailEntered){
-                System.out.println("Förnamn, efternamn eller användarnamn finns inte men email finns");
                 searchStatement = conn.prepareStatement("SELECT * FROM users WHERE email = ?");
                 searchStatement.setString(1, email);
             }
 
-            searchResults = searchStatement.executeQuery();
+            if(searchStatement!= null) {
+                searchResults = searchStatement.executeQuery();
 
-            while(searchResults.next()) {
+                while(searchResults.next()) {
 
-                int playerId = searchResults.getInt("id");
-                String friendUsername = searchResults.getString("username");
+                    int playerId = searchResults.getInt("id");
+                    String friendUsername = searchResults.getString("username");
 
-                Player possibleFriend = new Player(friendUsername, playerId);
-                searchResultListView.getItems().add(possibleFriend);
-
+                    Player possibleFriend = new Player(friendUsername, playerId);
+                    searchResultListView.getItems().add(possibleFriend);
+                }
             }
-
-
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
