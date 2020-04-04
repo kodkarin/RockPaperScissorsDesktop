@@ -157,7 +157,7 @@ public class WinnerWindow extends Window {
 
     private int showTotalNumberOfWinningsForActivePlayer() throws SQLException {
 
-        if (userIdPlayer1 == game.getPlayer1().getUserId()) {
+        if (getUserId(getToken()) == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
             getVictories.setInt(1,userIdPlayer1);
             getVictories.setInt(2, userIdPlayer2);
@@ -169,10 +169,10 @@ public class WinnerWindow extends Window {
                 labelShowTotalNumberOfWinningsForActivePlayer.setText(numberOfWinningsString);
                 labelShowTotalNumberOfWinningsForActivePlayer.setVisible(true);
             }
-        } else if (userIdPlayer2 == game.getPlayer2().getUserId()) {
+        } else if (getUserId(getToken()) == game.getPlayer2().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer1);
-            getVictories.setInt(2,userIdPlayer2);
+            getVictories.setInt(1,userIdPlayer2);
+            getVictories.setInt(2,userIdPlayer1);
             results = getVictories.executeQuery();
 
             if (results.next()) {
@@ -188,7 +188,7 @@ public class WinnerWindow extends Window {
 
     private int showTotalNumberOfLossesForActivePlayer() throws SQLException {
 
-        if (userIdPlayer1 == game.getPlayer1().getUserId()) {
+        if (getUserId(getToken()) == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
             getVictories.setInt(1,userIdPlayer2);
             getVictories.setInt(2,userIdPlayer1);
@@ -202,10 +202,10 @@ public class WinnerWindow extends Window {
             }
         }
 
-        if (userIdPlayer2 == game.getPlayer2().getUserId()) {
+        if (getUserId(getToken()) == game.getPlayer2().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer2);
-            getVictories.setInt(2,userIdPlayer1);
+            getVictories.setInt(1,userIdPlayer1);
+            getVictories.setInt(2,userIdPlayer2);
             results = getVictories.executeQuery();
 
             if (results.next()) {
