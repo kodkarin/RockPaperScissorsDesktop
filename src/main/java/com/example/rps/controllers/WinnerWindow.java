@@ -83,8 +83,8 @@ public class WinnerWindow extends Window {
 
             try {
                 inviteFriendStatement = getConnection().prepareStatement("INSERT INTO invitations VALUES (?, ?);");
-                inviteFriendStatement.setInt(1,getUserId(getToken()));
-                inviteFriendStatement.setInt(2,getUserId(getToken()));
+                inviteFriendStatement.setInt(1,userIdPlayer1);
+                inviteFriendStatement.setInt(2,userIdPlayer2);
                 inviteFriendStatement.executeUpdate();
 
                 getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
@@ -104,8 +104,8 @@ public class WinnerWindow extends Window {
 
             try {
                 inviteFriendStatement = getConnection().prepareStatement("INSERT INTO invitations VALUES (?, ?);");
-                inviteFriendStatement.setInt(1,userIdPlayer1);
-                inviteFriendStatement.setInt(2,userIdPlayer2);
+                inviteFriendStatement.setInt(1,userIdPlayer2);
+                inviteFriendStatement.setInt(2,userIdPlayer1);
                 inviteFriendStatement.executeUpdate();
 
                 getScreenController().setWindow(ScreenController.ACTIVE_GAMES, getToken());
@@ -159,7 +159,7 @@ public class WinnerWindow extends Window {
 
         if (getUserId(getToken()) == game.getPlayer1().getUserId()) {
             getVictories = getConnection().prepareStatement("SELECT victories from friends WHERE player1 = ? AND player2 = ?");
-            getVictories.setInt(1,userIdPlayer1);
+            getVictories.setInt(1, userIdPlayer1);
             getVictories.setInt(2, userIdPlayer2);
             results = getVictories.executeQuery();
 
