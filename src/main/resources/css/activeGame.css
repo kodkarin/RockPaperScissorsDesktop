@@ -41,3 +41,9 @@ HBox {
      -fx-border-color: #F09F30;
      -fx-border-width: 2;
 }
+
+#newFriendRequestButton {
+     -fx-padding: 5px;
+     -fx-border-insets: 5px;
+     -fx-background-insets: 5px;
+}

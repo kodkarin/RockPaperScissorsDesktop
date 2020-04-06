@@ -6,7 +6,7 @@
 Button {
 	-fx-background-radius: 5em;
 	-fx-color: #97BDF0;
-
+    -fx-border-radius: 5em;
 }
 
 Button:hover {
@@ -23,4 +23,9 @@ Button:hover {
 
 #inviteLabel {
     -fx-text-fill: #FF0000;
+}
+
+.request {
+    -fx-border-color: #F09F30;
+    -fx-border-width: 2;
 }

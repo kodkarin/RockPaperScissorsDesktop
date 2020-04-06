@@ -44,14 +44,17 @@
                    text="Friend requests"
                    visible="false"/>
             <ListView fx:id="requestsListView"
+                      styleClass = "request"
                       visible="false"
                       onMouseClicked="#activateRequestButtons"/>
             <Button fx:id="acceptFriendRequest"
+                    styleClass="request"
                     text="Accept"
                     visible="false"
                     disable="true"
                     onAction="#handleFriendRequestButtons"/>
             <Button fx:id="rejectFriendRequest"
+                    styleClass="request"
                     text="Do not accept"
                     visible="false"
                     disable="true"
