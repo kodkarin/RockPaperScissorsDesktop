@@ -327,39 +327,60 @@ public class GameWindow extends Window {
     }
 
     private void endGame(int winner, int loser) {
+        PreparedStatement getWinner = null;
+        ResultSet winnerResults = null;
         PreparedStatement insertWinner = null;
         PreparedStatement getNumberOfVictories = null;
         PreparedStatement incrementVictories = null;
         ResultSet results = null;
         int victories;
         try {
-            insertWinner = getConnection().prepareStatement("UPDATE matches SET winner = ? WHERE id = ?");
-            insertWinner.setInt(1, winner);
-            insertWinner.setInt(2, game.getGameID());
-            insertWinner.executeUpdate();
+            Connection conn = getConnection();
+            conn.setAutoCommit(false);
+            getWinner = conn.prepareStatement("SELECT winner FROM matches WHERE id = ?");
+            getWinner.setInt(1, game.getGameID());
 
-            getNumberOfVictories = getConnection().prepareStatement("SELECT victories FROM friends WHERE player1 = ? " +
-                    "AND player2 = ?");
-            getNumberOfVictories.setInt(1, winner);
-            getNumberOfVictories.setInt(2, loser);
+            winnerResults = getWinner.executeQuery();
+            if (winnerResults.next()) {
+                if (winnerResults.getInt(1) == 0) {
+                    insertWinner = conn.prepareStatement("UPDATE matches SET winner = ? WHERE id = ?");
+                    insertWinner.setInt(1, winner);
+                    insertWinner.setInt(2, game.getGameID());
+                    insertWinner.executeUpdate();
 
-            results = getNumberOfVictories.executeQuery();
-            if (results.next()) {
-                victories = results.getInt(1);
-                victories += 1;
+                    getNumberOfVictories = conn.prepareStatement("SELECT victories FROM friends WHERE player1 = ? " +
+                            "AND player2 = ?");
+                    getNumberOfVictories.setInt(1, winner);
+                    getNumberOfVictories.setInt(2, loser);
 
-                incrementVictories = getConnection().prepareStatement("UPDATE friends SET victories = ? " +
-                        "WHERE player1 = ? AND player2 = ?");
-                incrementVictories.setInt(1, victories);
-                incrementVictories.setInt(2, winner);
-                incrementVictories.setInt(3, loser);
+                    results = getNumberOfVictories.executeQuery();
+                    if (results.next()) {
+                        victories = results.getInt(1);
+                        victories += 1;
 
-                incrementVictories.executeUpdate();
+                        incrementVictories = conn.prepareStatement("UPDATE friends SET victories = ? " +
+                                "WHERE player1 = ? AND player2 = ?");
+                        incrementVictories.setInt(1, victories);
+                        incrementVictories.setInt(2, winner);
+                        incrementVictories.setInt(3, loser);
+
+                        incrementVictories.executeUpdate();
+                    }
+                }
             }
+
+            conn.commit();
+            conn.setAutoCommit(true);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             try {
+                if (getWinner != null) {
+                    getWinner.close();
+                }
+                if (winnerResults != null) {
+                    winnerResults.close();
+                }
                 if (insertWinner != null) {
                     insertWinner.close();
                 }
