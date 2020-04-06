@@ -9,6 +9,8 @@
 <?import javafx.geometry.Insets?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
+          id="createAccount"
+          stylesheets="@/css/createAccount.css"
           fx:controller="com.example.rps.controllers.CreateAccountWindow"
           prefHeight="400.0" prefWidth="600.0" alignment="CENTER" vgap="10" hgap="10">
 

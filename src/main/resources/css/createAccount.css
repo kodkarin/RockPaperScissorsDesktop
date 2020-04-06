@@ -1,0 +1,16 @@
+#createAccount {
+    -fx-background-color: #C0D3EB;
+    -fx-alignment: center;
+    -fx-padding: 5px;
+}
+
+Button {
+	-fx-background-radius: 5em;
+	-fx-color: #97BDF0;
+	-fx-padding: 5px;
+	-fx-alignment: center;
+}
+
+Button:hover {
+    -fx-color: #4879B8;
+}
